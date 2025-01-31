@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO 최적화 -->
+  <title>대문자 -> 소문자 변환 도구 - 텍스트 변환</title>
+  <meta name="description" content="대문자를 소문자로 변환하는 간단한 텍스트 변환 도구. 텍스트를 입력하고 변환된 결과를 확인하세요.">
+  <meta name="keywords" content="대문자 소문자 변환, 텍스트 변환 도구, 문자열 변환, 문자 변환 도구">
+  <meta name="author" content="Hyunsoo">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="대문자 -> 소문자 변환 도구">
+  <meta property="og:description" content="간단하고 빠른 대문자 소문자 변환 도구로 텍스트를 변환하세요.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://yourwebsite.com/to-lowercase">
+  <meta property="og:image" content="http://yourwebsite.com/images/to-lowercase-banner.png">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="대문자 -> 소문자 변환 도구">
+  <meta name="twitter:description" content="빠르게 대문자를 소문자로 변환하세요.">
+  <meta name="twitter:image" content="http://yourwebsite.com/images/to-lowercase-banner.png">
+
+  <!-- 스타일 -->
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+  <%- include('partials/header') %>
+
+  <div class="container mt-5">
+    <div class="row">
+      <!-- Left Menu -->
+      <div class="col-md-2">
+        <%- include('partials/left-menu') %>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-md-10">
+        <h1>대문자 -> 소문자 변환 도구</h1>
+        <p>
+          이 도구를 사용하여 텍스트의 대문자를 소문자로 변환하세요. 간단하고 빠른 방식으로 텍스트를 변환할 수 있습니다.
+        </p>
+
+        <!-- 사용법 -->
+        <section class="mt-4">
+          <h2>사용 방법</h2>
+          <ol>
+            <li>입력란에 변환할 텍스트를 입력합니다.</li>
+            <li>"소문자로 변환" 버튼을 클릭하여 결과를 확인합니다.</li>
+            <li>필요하다면 "클립보드에 복사" 버튼을 클릭하여 결과를 복사합니다.</li>
+            <li>"Clear" 버튼을 사용하여 입력 필드와 결과를 초기화하세요.</li>
+          </ol>
+        </section>
+
+        <!-- 입력 섹션 -->
+        <section class="mt-5">
+          <h2>텍스트 입력</h2>
+          <form id="lowercase-form" action="/to-lowercase" method="POST">
+            <div class="mb-3">
+              <label for="text" class="form-label">텍스트 입력</label>
+              <textarea class="form-control" id="text" name="text" rows="6" required><%= text || '' %></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">소문자로 변환</button>
+            <button type="button" class="btn btn-secondary" id="clear-btn">Clear</button>
+          </form>
+        </section>
+
+        <!-- 결과 섹션 -->
+        <% if (result) { %>
+        <section class="mt-5">
+          <h2>결과</h2>
+          <pre class="bg-light p-3 rounded" id="result"><%= result %></pre>
+          <button class="btn btn-success mt-2" id="copy-btn">클립보드에 복사</button>
+        </section>
+        <% } %>
+
+        <!-- Clear 및 복사 스크립트 -->
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            const clearBtn = document.getElementById('clear-btn');
+            const textArea = document.getElementById('text');
+            const result = document.getElementById('result');
+
+            // Clear 버튼 동작
+            clearBtn?.addEventListener('click', () => {
+              textArea.value = ''; // 입력 필드 초기화
+              if (result) result.innerText = ''; // 결과 영역 초기화
+            });
+
+            // 클립보드 복사 버튼 동작
+            const copyBtn = document.getElementById('copy-btn');
+            if (copyBtn && result) {
+              copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(result.innerText)
+                  .then(() => alert('결과가 클립보드에 복사되었습니다!'))
+                  .catch(err => console.error('복사 실패:', err));
+              });
+            }
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO 최적화 -->
+  <title>XML to XSD Converter - XML을 XSD로 변환</title>
+  <meta name="description" content="XML 데이터를 XSD로 변환하는 간단한 도구입니다. 데이터 구조를 정의하고 유효성을 검증하는 데 사용되는 XSD를 생성하세요.">
+  <meta name="keywords" content="XML to XSD, XML 변환 도구, XSD 생성기, XML Schema, 데이터 유효성 검증">
+  <meta name="author" content="Your Name">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="XML to XSD Converter">
+  <meta property="og:description" content="XML 데이터를 간단히 XSD로 변환하세요. 데이터 구조를 정의하는 데 유용한 도구입니다.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://yourwebsite.com/xml-to-xsd">
+  <meta property="og:image" content="http://yourwebsite.com/images/xml-to-xsd-banner.png">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="XML to XSD Converter">
+  <meta name="twitter:description" content="XML 파일을 기반으로 데이터 구조를 정의하는 XSD를 생성하세요.">
+  <meta name="twitter:image" content="http://yourwebsite.com/images/xml-to-xsd-banner.png">
+
+  <!-- 스타일 -->
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+  <%- include('partials/header') %>
+
+  <div class="container mt-5">
+    <div class="row">
+      <!-- Left Menu -->
+      <div class="col-md-2">
+        <%- include('partials/left-menu') %>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-md-10">
+        <h1>XML to XSD Converter</h1>
+        <p>
+          XML 데이터를 XSD로 변환하세요. XSD는 데이터의 구조와 유효성을 정의하는 데 사용됩니다. 
+          XML 스키마를 생성하여 데이터 모델링을 간단히 완료하세요.
+        </p>
+
+        <!-- 입력 섹션 -->
+        <section class="mt-5">
+          <h2>XML 입력</h2>
+          <form id="xml-to-xsd-form" action="/xml-to-xsd" method="POST">
+            <div class="mb-3">
+              <label for="text" class="form-label">XML 입력</label>
+              <textarea class="form-control" id="text" name="text" rows="6" required><%= text || '' %></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">XSD 생성</button>
+            <button type="button" class="btn btn-secondary" id="clear-btn">Clear</button>
+          </form>
+        </section>
+
+        <!-- 결과 섹션 -->
+        <% if (result) { %>
+        <section class="mt-5">
+          <h2>XSD 결과</h2>
+          <pre class="bg-light p-3 rounded" id="result"><%= result %></pre>
+          <button class="btn btn-success mt-2" id="copy-btn">클립보드에 복사</button>
+        </section>
+        <% } %>
+        <% if (error) { %>
+        <section class="mt-5">
+          <div class="alert alert-danger"><%= error %></div>
+        </section>
+        <% } %>
+
+        <!-- 변환 도구에 대한 설명 -->
+        <section class="mt-5">
+          <h2>XML to XSD란?</h2>
+          <p>
+            "XML to XSD Converter"는 XML 데이터를 XML 스키마(XSD)로 변환하는 도구입니다.
+            XSD는 XML 데이터의 구조와 유효성을 정의하는 데 사용됩니다.
+          </p>
+          <h3>사용 방법</h3>
+          <ol>
+            <li>XML 데이터를 입력합니다.</li>
+            <li>"XSD 생성" 버튼을 클릭합니다.</li>
+            <li>XSD 결과를 확인하고 클립보드에 복사하세요.</li>
+          </ol>
+          <h3>예시</h3>
+          <p>
+            XML 입력:
+          </p>
+          <pre>
+&lt;person&gt;
+  &lt;name&gt;John&lt;/name&gt;
+  &lt;age&gt;30&lt;/age&gt;
+&lt;/person&gt;
+          </pre>
+          <p>XSD 출력:</p>
+          <pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="person"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="name" type="xs:string" /&gt;
+        &lt;xs:element name="age" type="xs:string" /&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;
+          </pre>
+        </section>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              const clearBtn = document.getElementById('clear-btn');
+              const textArea = document.getElementById('text');
+              const result = document.getElementById('result');
+              const copyBtn = document.getElementById('copy-btn');
+          
+              // Clear 버튼 동작
+              clearBtn?.addEventListener('click', () => {
+                textArea.value = ''; // 입력 필드 초기화
+                if (result) result.innerText = ''; // 결과 영역 초기화
+              });
+          
+              // 클립보드 복사 버튼 동작
+              copyBtn?.addEventListener('click', () => {
+                if (result && result.innerText) {
+                  navigator.clipboard.writeText(result.innerText)
+                    .then(() => {
+                      alert('결과가 클립보드에 복사되었습니다!');
+                    })
+                    .catch((err) => {
+                      console.error('클립보드 복사 실패:', err);
+                      alert('클립보드 복사에 실패했습니다. 브라우저 설정을 확인해주세요.');
+                    });
+                } else {
+                  alert('복사할 내용이 없습니다.');
+                }
+              });
+            });
+          </script>
+          
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

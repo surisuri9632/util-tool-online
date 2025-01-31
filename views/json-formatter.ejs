@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO 관련 정보 -->
+  <title>JSON Formatter & Validator - 포매팅 및 JSON 유효성 검사</title>
+  <meta name="description" content="무료 JSON Formatter & Validator를 사용하여 JSON 데이터를 깔끔하게 포매팅하고 유효성을 검사하세요. 개발자 도구로 JSON을 읽기 쉽게 변환하세요.">
+  <meta name="keywords" content="JSON Formatter, JSON Validator, JSON 포매터, JSON 유효성 검사, JSON 도구, 개발자 도구">
+  <meta name="author" content="Hyunsoo">
+  
+  <!-- OG 태그(Open Graph) for Social Media -->
+  <meta property="og:title" content="JSON Formatter & Validator">
+  <meta property="og:description" content="무료 JSON 포매터 & 유효성 검사 도구로 JSON 데이터를 빠르고 쉽고 효율적으로 관리하세요.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://yourwebsite.com/json-formatter">
+  <meta property="og:image" content="http://yourwebsite.com/images/json-formatter-banner.png">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="JSON Formatter & Validator">
+  <meta name="twitter:description" content="JSON 데이터를 빠르고 간단하게 포매팅하고 유효성을 검사하세요.">
+  <meta name="twitter:image" content="http://yourwebsite.com/images/json-formatter-banner.png">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+  <!-- CSS 링크 -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+  <!-- 공통 헤더 -->
+  <%- include('partials/header') %>
+
+  <div class="container mt-5">
+    <div class="row">
+      <!-- Left Menu -->
+      <div class="col-md-2">
+        <%- include('partials/left-menu') %>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-md-10">
+        <!-- 페이지 주요 제목 -->
+        <h1>JSON Formatter & Validator</h1>
+        <p>
+          JSON Formatter & Validator 도구를 사용하여 JSON 데이터를 깔끔하게 포매팅하고 유효성을 검사하세요. 
+          이 도구는 개발자와 비개발자가 JSON 데이터를 이해하기 쉽게 변환하도록 도와줍니다.
+        </p>
+        
+        <!-- JSON 입력 섹션 -->
+        <section>
+          <h2>JSON 입력</h2>
+          <form id="json-form" action="/json-formatter" method="POST">
+            <div class="mb-3">
+              <label for="jsonInput" class="form-label">JSON 입력</label>
+              <textarea class="form-control" id="jsonInput" name="jsonInput" rows="10" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">포매팅하기</button>
+            <button type="button" class="btn btn-secondary" id="clear-btn">Clear</button>
+          </form>
+        </section>
+
+        <!-- 결과 섹션 -->
+        <section class="mt-5">
+          <h2>포매팅 결과</h2>
+          <% if (error) { %>
+            <div class="alert alert-danger" role="alert">
+              <%= error %>
+            </div>
+          <% } %>
+          <% if (formattedJSON) { %>
+            <pre class="bg-light p-3 rounded" id="formatted-json"><%= formattedJSON %></pre>
+            <button class="btn btn-success mt-2" id="copy-btn">클립보드에 복사</button>
+          <% } %>
+        </section>
+
+        <!-- 페이지 추가 정보 -->
+        <section class="mt-5">
+          <h2>JSON Formatter란?</h2>
+          <p>
+            JSON Formatter는 JSON 데이터를 더 읽기 쉽고 구조적으로 변환하는 도구입니다. 
+            JSON Validator를 통해 JSON 데이터가 올바른 구문을 따르며 유효한지 확인할 수 있습니다.
+          </p>
+          <h3>이 도구로 할 수 있는 일:</h3>
+          <ul>
+            <li>JSON 데이터를 포매팅하고 들여쓰기 정리</li>
+            <li>JSON 데이터의 유효성 검사</li>
+            <li>JSON 데이터를 클립보드에 복사</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- 공통 푸터 -->
+  <%- include('partials/footer') %>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const clearBtn = document.getElementById('clear-btn');
+      const jsonInput = document.getElementById('jsonInput');
+      const copyBtn = document.getElementById('copy-btn');
+      const formattedJson = document.getElementById('formatted-json');
+      clearBtn.addEventListener('click', () => {
+        jsonInput.value = ''; // 텍스트 영역 초기화
+        if (formattedJson) formattedJson.innerText = ''; // 결과 영역 초기화
+      });
+
+      
+      if (copyBtn && formattedJson) {
+        copyBtn.addEventListener('click', () => {
+          navigator.clipboard.writeText(formattedJson.textContent)
+            .then(() => {
+              alert('내용이 클립보드에 복사되었습니다!');
+            })
+            .catch(err => {
+              console.error('클립보드 복사 실패:', err);
+              alert('복사에 실패했습니다. 다시 시도해주세요.');
+            });
+        });
+      }
+    });
+  </script>
+</body>
+</html>
