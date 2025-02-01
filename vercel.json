@@ -8,21 +8,17 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "app.js"
-    }
-  ],
-  "redirects": [
+      "src": "/sitemap.xml",
+      "dest": "/app.js"
+    },
     {
-      "source": "/(.*)",
-      "destination": "https://util-tool-online.com",
-      "permanent": true
+      "src": "/robots.txt",
+      "dest": "/public/robots.txt"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/app.js"
     }
-  ],
-  "rewrites": [
-    { "source": "/sitemap.xml", "destination": "/sitemap.xml" },
-    { "source": "/robots.txt", "destination": "/robots.txt" },
-    { "source": "/((?!sitemap\\.xml|robots\\.txt).*)", "destination": "/" }
   ],
   "headers": [
     {
