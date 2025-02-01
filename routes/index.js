@@ -256,7 +256,11 @@ router.get('/sitemap.xml', async (req, res) => {
       { url: '/json-formatter', changefreq: 'weekly', priority: 0.8 },
       { url: '/base64', changefreq: 'weekly', priority: 0.8 },
       { url: '/word-counter', changefreq: 'weekly', priority: 0.7 },
-      { url: '/xml-to-json', changefreq: 'monthly', priority: 0.6 }
+      { url: '/xml-to-json', changefreq: 'monthly', priority: 0.6 },
+      { url: '/xml-to-xsd', changefreq: 'monthly', priority: 0.6 },
+      { url: '/to-uppercase', changefreq: 'monthly', priority: 0.5 },
+      { url: '/to-lowercase', changefreq: 'monthly', priority: 0.5 },
+      { url: '/reverse-text', changefreq: 'monthly', priority: 0.5 }
     ];
 
     const stream = new SitemapStream({ hostname });
