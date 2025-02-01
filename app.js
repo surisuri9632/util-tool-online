@@ -8,6 +8,9 @@ const PORT = 3000;
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+const routes = require('./routes/index');
+app.use('/', routes);
+
 // 정적 파일 경로 설정
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -16,8 +19,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // 라우터 설정
-const routes = require('./routes/index');
-app.use('/', routes);
+
+
 
 // 서버 시작
 app.listen(PORT, () => {
