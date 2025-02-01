@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { parseString } = require('xml2js');
+const { SitemapStream, streamToPromise } = require('sitemap'); // sitemap 생성 라이브러리
 
 // 메인 페이지
 router.get('/', (req, res) => {
@@ -235,6 +236,46 @@ function generateXSD(parsedXML) {
   xsd += '</xs:schema>';
   return xsd;
 }
+
+//#endregion
+
+//#region Sitemap 라우트
+// Sitemap 라우트
+router.get('/sitemap.xml', async (req, res) => {
+  try {
+    const hostname = 'https://util-tool-online.com'; // 도메인 이름 (배포된 프로젝트 URL)
+
+    // 주요 URL 정의
+    const links = [
+      { url: '/', changefreq: 'daily', priority: 1.0 },
+      { url: '/json-formatter', changefreq: 'weekly', priority: 0.8 },
+      { url: '/base64', changefreq: 'weekly', priority: 0.8 },
+      { url: '/word-counter', changefreq: 'weekly', priority: 0.7 },
+      { url: '/xml-to-json', changefreq: 'monthly', priority: 0.6 },
+      { url: '/xml-to-xsd', changefreq: 'monthly', priority: 0.6 },
+      { url: '/to-uppercase', changefreq: 'monthly', priority: 0.5 },
+      { url: '/to-lowercase', changefreq: 'monthly', priority: 0.5 },
+      { url: '/reverse-text', changefreq: 'monthly', priority: 0.5 }
+    ];
+
+    // SitemapStream 생성
+    const stream = new SitemapStream({ hostname });
+
+    // URL 추가
+    links.forEach(link => stream.write(link));
+    stream.end();
+
+    // Sitemap XML 생성
+    const sitemap = await streamToPromise(stream).then(data => data.toString());
+
+    // XML 헤더 및 데이터 반환
+    res.header('Content-Type', 'application/xml');
+    res.send(sitemap);
+  } catch (err) {
+    console.error('Sitemap 생성 중 오류:', err);
+    res.status(500).end();
+  }
+});
 
 //#endregion
 

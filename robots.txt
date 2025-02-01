@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://util-tool-online.com/sitemap.xml
