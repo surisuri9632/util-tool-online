@@ -1,53 +1,59 @@
-<ul class="list-group" id="left-menu">
-  <li class="list-group-item">
-    <a href="#" class="d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#category1">
-      <strong>Text Tools</strong>
-      <span class="badge badge-primary badge-pill">+</span>
+<ul id="left-menu" class="list-unstyled">
+  <li class="mb-2">
+    <a class="text-decoration-none" data-bs-toggle="collapse" href="#text-tools" role="button" aria-expanded="false" aria-controls="text-tools">
+      TEXT TOOLS <span class="badge text-bg-dark float-end ms-2">+</span>
     </a>
-    <div id="category1" class="collapse show">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><a href="/word-counter">Word Counter</a></li>
-        <li class="list-group-item"><a href="/to-uppercase">To Uppercase</a></li>
-        <li class="list-group-item"><a href="/to-lowercase">To Lowercase</a></li>
-        <li class="list-group-item"><a href="/reverse-text">Reverse Text</a></li>
-        <li class="list-group-item"><a href="/url-escape-unescape">URL Encode/Decode</a></li>
-        <li class="list-group-item"><a href="/html-encode-decode">HTML Encode/Decode</a></li>
-      </ul>
-    </div>
+    <ul class="collapse list-unstyled" id="text-tools">
+      <li><a href="/word-counter" class="text-decoration-none">Word Counter</a></li>
+      <li><a href="/html-encode-decode" class="text-decoration-none">HTML Encode Decode</a></li>
+      <li><a href="/url-encode-decode" class="text-decoration-none">URL Encode Decode</a></li>
+    </ul>
   </li>
-  <li class="list-group-item">
-    <a href="#" class="d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#category2">
-      <strong>Data Conversion</strong>
-      <span class="badge badge-primary badge-pill">+</span>
+  <li class="mb-2">
+    <a class="text-decoration-none" data-bs-toggle="collapse" href="#data-tools" role="button" aria-expanded="false" aria-controls="data-tools">
+      DATA CONVERT TOOLS <span class="badge text-bg-dark float-end ms-2">+</span>
     </a>
-    <div id="category2" class="collapse show">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><a href="/json-formatter">JSON Formatter</a></li>
-        <li class="list-group-item"><a href="/xml-to-json">XML to JSON</a></li>
-        <li class="list-group-item"><a href="/xml-to-xsd">XML to XSD</a></li>
-        <li class="list-group-item"><a href="/base64">Base64 Encode/Decode</a></li>
-        <li class="list-group-item"><a href="/rgb-converter">RGB Converter</a></li>
-        <li class="list-group-item"><a href="/timestamp-converter">Timestamp Converter</a></li>
-      </ul>
-    </div>
+    <ul class="collapse list-unstyled" id="data-tools">
+      <li><a href="/json-formatter" class="text-decoration-none">JSON Formatter</a></li>
+      <li><a href="/xml-formatter" class="text-decoration-none">XML Formatter</a></li>
+    </ul>
   </li>
-  <li class="list-group-item">
-    <a href="#" class="d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#category3">
-      <strong>Hashing & Cryptography</strong>
-      <span class="badge badge-primary badge-pill">+</span>
+  <li class="mb-2">
+    <a class="text-decoration-none" data-bs-toggle="collapse" href="#hash-tools" role="button" aria-expanded="false" aria-controls="hash-tools">
+      HASH TOOLS <span class="badge text-bg-dark float-end ms-2">+</span>
     </a>
-    <div id="category3" class="collapse show">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><a href="/sha1">SHA-1 Hash Generator</a></li>
-        <li class="list-group-item"><a href="/sha256">SHA-256 Hash Generator</a></li>
-        <li class="list-group-item"><a href="/md5">MD5 Hash Generator</a></li>
-        <li class="list-group-item"><a href="/hmac">HMAC Hash Generator</a></li>
-        <li class="list-group-item"><a href="/jwt">JWT Generator</a></li>
-        <li class="list-group-item"><a href="/bcrypt">Bcrypt Hash Generator</a></li>
-      </ul>
-    </div>
+    <ul class="collapse list-unstyled" id="hash-tools">
+      <li><a href="/sha1" class="text-decoration-none">SHA1</a></li>
+      <li><a href="/sha256" class="text-decoration-none">SHA256</a></li>
+      <li><a href="/md5" class="text-decoration-none">MD5</a></li>
+      <li><a href="/hmac" class="text-decoration-none">HMAC</a></li>
+    </ul>
   </li>
-  <li class="list-group-item">
-    <a href="/loan-calculator">Loan Calculator</a>
+  <li class="mb-2">
+    <a class="text-decoration-none" data-bs-toggle="collapse" href="#crypto-tools" role="button" aria-expanded="false" aria-controls="crypto-tools">
+      CRYPTO TOOLS <span class="badge text-bg-dark float-end ms-2">+</span>
+    </a>
+    <ul class="collapse list-unstyled" id="crypto-tools">
+      <li><a href="/jwt" class="text-decoration-none">JWT</a></li>
+      <li><a href="/bcrypt" class="text-decoration-none">bcrypt</a></li>
+    </ul>
+  </li>
+  <li class="mb-2">
+      <a class="text-decoration-none" data-bs-toggle="collapse" href="#base64-tools" role="button" aria-expanded="false" aria-controls="base64-tools">
+        BASE64 <span class="badge text-bg-dark float-end ms-2">+</span>
+      </a>
+      <ul class="collapse list-unstyled" id="base64-tools">
+        <li><a href="/base64" class="text-decoration-none">BASE64</a></li>
+      </ul>
+    </li>
+  <li class="mb-2">
+    <a class="text-decoration-none" data-bs-toggle="collapse" href="#etc-tools" role="button" aria-expanded="false" aria-controls="etc-tools">
+      ETC TOOLS <span class="badge text-bg-dark float-end ms-2">+</span>
+    </a>
+    <ul class="collapse list-unstyled" id="etc-tools">
+      <li><a href="/loan-calculator" class="text-decoration-none">Loan Calculator</a></li>
+      <li><a href="/rgb-converter" class="text-decoration-none">RGB Converter</a></li>
+      <li><a href="/timestamp-converter" class="text-decoration-none">Timestamp Converter</a></li>
+    </ul>
   </li>
 </ul>
