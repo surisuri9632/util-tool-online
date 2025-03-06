@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JWT Generator</title>
+    <meta name="description" content="Generate JSON Web Tokens (JWTs) with this online tool.  Select the signing algorithm and provide header, payload data.">
+    <meta name="keywords" content="JWT, JSON Web Token, JWT generator, online JWT, JWT encoder, token generation, authentication, authorization">
+    <meta name="author" content="SOFTICA">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="JWT Generator">
+    <meta property="og:description" content="Generate JWTs easily and securely.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://util-tool-online.com/jwt">
+    <meta property="og:image" content="https://util-tool-online.com/images/util-tool-online.png">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="https://util-tool-online.com/images/util-tool-online.png">
+    <meta name="twitter:title" content="JWT Generator">
+    <meta name="twitter:description" content="Generate JWTs online.">
+    <meta name="twitter:image" content="https://util-tool-online.com/images/util-tool-online.png">
+
+    <link rel="icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { font-family: sans-serif; }
+        .result-box { padding: 10px; border: 1px solid #ccc; margin-bottom: 10px; }
+        .result-box h3 { margin-top: 0; }
+        textarea { min-height: 100px; resize: vertical; }
+    </style>
+</head>
+<body>
+    <%- include('partials/header') %>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-2">
+                <%- include('partials/left-menu') %>
+            </div>
+            <div class="col-md-10">
+                <h1>JWT Generator</h1>
+                <p>Generate JSON Web Tokens (JWTs).</p>
+
+                <section>
+                    <h2>JWT Data</h2>
+                    <form id="jwt-form" >
+                        <div class="mb-3">
+                            <label for="header" class="form-label">Header (JSON):</label>
+                            <textarea class="form-control" id="header" name="header" rows="3">{"alg": "HS256", "typ": "JWT"}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="payload" class="form-label">Payload (JSON):</label>
+                            <textarea class="form-control" id="payload" name="payload" rows="6">{"sub": "1234567890", "name": "John Doe", "iat": 1678886400}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="secret" class="form-label">Secret Key:</label>
+                            <input type="text" class="form-control" id="secret" name="secret" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="algorithm" class="form-label">Algorithm:</label>
+                            <select class="form-select" id="algorithm" name="algorithm">
+                                <option value="HS256">HS256</option>
+                                <option value="HS384">HS384</option>
+                                <option value="HS512">HS512</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="generateJWT()">Generate JWT</button>
+                        <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
+                    </form>
+                </section>
+
+                <section class="mt-5" id="results-section">
+                  <h2>Result</h2>
+                  <div id="jwt-result"></div> 
+                </section>
+
+                <section class="mt-5">
+                    <h2>About JWT</h2>
+                    <p>JSON Web Token (JWT) is a compact and self-contained way for securely transmitting information between parties as a JSON object.  This information can be verified and trusted because it is digitally signed.</p>
+
+                    <h3>Why Use JWT?</h3>
+                    <ul>
+                        <li><strong>Authentication:</strong>  Verify the identity of a user.</li>
+                        <li><strong>Authorization:</strong>  Grant access to specific resources.</li>
+                        <li><strong>Information Exchange:</strong>  Securely transmit user information.</li>
+                    </ul>
+
+                    <h3>Examples</h3>
+                    <p>Input: (Sample data above) Output: (JWT token)</p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+
+    <script>
+        function generateJWT() {
+            const header = document.getElementById('header').value;
+            const payload = document.getElementById('payload').value;
+            const secret = document.getElementById('secret').value;
+            const algorithm = document.getElementById('algorithm').value;
+            const resultsDiv = document.getElementById('jwt-result');
+
+            fetch('/jwt', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ header, payload, secret, algorithm }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    resultsDiv.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
+                } else {
+                    resultsDiv.innerHTML = `
+                        <div class="result-box">
+                            <h3>JWT:</h3>
+                            <pre>${data.jwt}</pre>
+                            <button class="btn btn-success mt-2" id="copy-btn">Copy to Clipboard</button>
+                        </div>
+                    `;
+                    const copyBtn = document.getElementById('copy-btn');
+                    copyBtn.addEventListener('click', () => {
+                        navigator.clipboard.writeText(data.jwt)
+                            .then(() => alert('JWT copied to clipboard!'))
+                            .catch(err => console.error('Copy failed:', err));
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                resultsDiv.innerHTML = `<div class="alert alert-danger">An error occurred. Please try again.</div>`;
+            });
+        }
+
+        function clearForm() {
+            document.getElementById('header').value = '';
+            document.getElementById('payload').value = '';
+            document.getElementById('secret').value = '';
+            document.getElementById('algorithm').selectedIndex = 0; //Reset algorithm to HS256
+            document.getElementById('jwt-result').innerHTML = ''; // Clear results area
+        }
+    </script>
+</body>
+</html>
+

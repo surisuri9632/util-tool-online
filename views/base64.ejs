@@ -1,35 +1,34 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- SEO 최적화 태그 -->
-  <title>Base64 Encoder & Decoder - 인코딩 및 디코딩 도구</title>
-  <meta name="description" content="Base64 Encoder & Decoder 도구를 사용하여 텍스트를 인코딩하거나 디코딩하세요. 간단한 도구로 데이터를 손쉽게 관리하세요.">
-  <meta name="keywords" content="Base64, Encoder, Decoder, Base64 인코딩, Base64 디코딩, 개발자 도구">
-  <meta name="author" content="Your Name">
+  <!-- SEO Optimization -->
+  <title>Base64 Encoder & Decoder - Encode and Decode Data</title>
+  <meta name="description" content="Easily encode and decode Base64 data with our free online Base64 encoder and decoder.  A simple tool for developers and anyone working with binary data.">
+  <meta name="keywords" content="Base64, Encoder, Decoder, Base64 encode, Base64 decode, Base64 encoding, Base64 decoding, online Base64, data encoding, data decoding, developer tools">
+  <meta name="author" content="SOFTICA">
 
-  <!-- Open Graph 태그 -->
+  <!-- Open Graph -->
   <meta property="og:title" content="Base64 Encoder & Decoder">
-  <meta property="og:description" content="Base64 Encoder & Decoder를 사용하여 텍스트를 인코딩하거나 디코딩하세요. 간단한 도구로 데이터를 변환하고 관리하세요.">
+  <meta property="og:description" content="Encode and decode Base64 data quickly and easily with this free online tool.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://util-tool-online.com/base64">
-  <meta property="og:image" content="https://util-tool-online.com/images/base64-tool-banner.png">
+  <meta property="og:image" content="https://util-tool-online.com/images/util-tool-online.png">
 
   <!-- Twitter Cards -->
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:card" content="https://util-tool-online.com/images/util-tool-online.png">
   <meta name="twitter:title" content="Base64 Encoder & Decoder">
-  <meta name="twitter:description" content="Base64 텍스트 변환 도구로 데이터를 더 쉽게 관리하세요.">
-  <meta name="twitter:image" content="https://util-tool-online.com/images/base64-tool-banner.png">
+  <meta name="twitter:description" content="Encode and decode Base64 data effortlessly.">
+  <meta name="twitter:image" content="https://util-tool-online.com/images/util-tool-online.png">
 
-  <!-- 스타일 -->
+  <!-- Styles -->
   <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
-  <!-- 공통 헤더 -->
   <%- include('partials/header') %>
 
   <div class="container mt-5">
@@ -43,74 +42,75 @@
       <div class="col-md-10">
         <h1>Base64 Encoder & Decoder</h1>
         <p>
-          Base64 Encoder & Decoder 도구를 사용하여 텍스트를 Base64 형식으로 변환하거나,
-          Base64 텍스트를 디코딩하여 원래 데이터를 복원할 수 있습니다. 간단한 입력과 클릭만으로 데이터를 쉽게 관리하세요.
+          Use this tool to easily encode and decode text to and from Base64 format.  Base64 is a common encoding scheme for representing binary data as text.
         </p>
 
-        <!-- 사용법 설명 -->
+        <!-- Usage Instructions -->
         <section class="mt-4">
-          <h2>사용 방법</h2>
+          <h2>How to Use</h2>
           <ol>
-            <li>텍스트 입력란에 변환할 텍스트를 입력합니다.</li>
-            <li>"Base64 인코딩" 또는 "Base64 디코딩"을 선택합니다.</li>
-            <li>"변환" 버튼을 클릭하여 결과를 확인합니다.</li>
-            <li>필요하다면 "클립보드에 복사" 버튼을 클릭하여 결과를 복사하세요.</li>
-            <li>"Clear" 버튼을 사용하여 입력 필드와 결과를 초기화하세요.</li>
+            <li>Enter the text you want to encode or decode in the input field.</li>
+            <li>Select "Encode" or "Decode" from the dropdown menu.</li>
+            <li>Click the "Convert" button to see the result.</li>
+            <li>Optionally, click "Copy to Clipboard" to copy the result.</li>
+            <li>Use the "Clear" button to reset the input and output fields.</li>
           </ol>
         </section>
         
-        <!-- 입력 섹션 -->
+        <!-- Input Section -->
         <section class="mt-5">
-          <h2>텍스트 인코딩/디코딩</h2>
+          <h2>Encode/Decode Text</h2>
           <form id="base64-form" action="/base64" method="POST">
             <div class="mb-3">
-              <label for="text" class="form-label">텍스트 입력</label>
+              <label for="text" class="form-label">Enter Text</label>
               <textarea class="form-control" id="text" name="text" rows="4" required></textarea>
             </div>
             <div class="mb-3">
-              <label for="mode" class="form-label">동작 선택</label>
+              <label for="mode" class="form-label">Select Action</label>
               <select class="form-select" id="mode" name="mode" required>
-                <option value="encode">Base64 인코딩</option>
-                <option value="decode">Base64 디코딩</option>
+                <option value="encode">Encode to Base64</option>
+                <option value="decode">Decode from Base64</option>
               </select>
             </div>
-            <button type="submit" class="btn btn-primary">변환</button>
+            <button type="submit" class="btn btn-primary">Convert</button>
             <button type="button" class="btn btn-secondary" id="clear-btn">Clear</button>
           </form>
         </section>
 
-        <!-- 결과 섹션 -->
+        <!-- Result Section -->
         <section class="mt-5">
-          <h2>결과</h2>
+          <h2>Result</h2>
           <% if (error) { %>
             <div class="alert alert-danger" id="error-message"><%= error %></div>
           <% } %>
           <% if (result) { %>
             <pre class="bg-light p-3 rounded" id="result"><%= result %></pre>
-            <button class="btn btn-success mt-2" id="copy-btn">클립보드에 복사</button>
+            <button class="btn btn-success mt-2" id="copy-btn">Copy to Clipboard</button>
           <% } %>
         </section>
 
-        <!-- 설명 섹션 -->
+        <!-- About Base64 Section -->
         <section class="mt-5">
-          <h2>Base64란?</h2>
+          <h2>What is Base64 Encoding/Decoding?</h2>
           <p>
-            Base64는 데이터를 텍스트 형식으로 변환하는 인코딩 방식으로, 주로 바이너리 데이터를 텍스트 기반 시스템에서 처리할 수 있게 만듭니다.
-            이메일 첨부 파일, 이미지 데이터 등의 인코딩에 사용됩니다.
+            Base64 is a binary-to-text encoding scheme that represents binary data (like images, audio, or other files) in an ASCII string format.  This is useful for transmitting binary data over systems that only support text, like email or web forms.  Base64 encoding uses a set of 64 characters (uppercase and lowercase letters, numbers, and two symbols) to represent the binary data.
           </p>
-          <h3>이 도구의 주요 기능:</h3>
+          <h3>Why Use Base64?</h3>
           <ul>
-            <li>텍스트를 Base64로 변환</li>
-            <li>Base64를 원래 텍스트로 복원</li>
-            <li>결과를 클립보드에 복사</li>
-            <li>변환 전 텍스트의 유효성을 검사</li>
+            <li><strong>Transferring Binary Data:</strong>  Send binary data through text-only channels (email, etc.).</li>
+            <li><strong>Embedding Data in Text:</strong> Include binary data within text-based formats like HTML or configuration files.</li>
+            <li><strong>Data Storage:</strong> Store binary data in databases designed for text storage.</li>
+          </ul>
+          <h3>Examples</h3>
+          <ul>
+            <li><strong>Encoding:</strong> Input: "Hello"  Output: (Encoded Base64 string)</li>
+            <li><strong>Decoding:</strong> Input: (Encoded Base64 string) Output: "Hello"</li>
           </ul>
         </section>
       </div>
     </div>
   </div>
 
-  <!-- 공통 푸터 -->
   <%- include('partials/footer') %>
 
   <script>
@@ -120,23 +120,22 @@
       const result = document.getElementById('result');
       const errorMessage = document.getElementById('error-message');
 
-      // Clear 버튼 동작
       clearBtn?.addEventListener('click', () => {
-        textArea.value = ''; // 입력 필드 초기화
-        if (result) result.innerText = ''; // 결과 영역 초기화
-        if (errorMessage) errorMessage.style.display = 'none'; // 에러 메시지 숨김
+        textArea.value = '';
+        if (result) result.innerText = '';
+        if (errorMessage) errorMessage.style.display = 'none';
       });
 
-      // 클립보드 복사 버튼 동작
       const copyBtn = document.getElementById('copy-btn');
       if (copyBtn && result) {
         copyBtn.addEventListener('click', () => {
           navigator.clipboard.writeText(result.innerText)
-            .then(() => alert('결과가 클립보드에 복사되었습니다!'))
-            .catch(err => console.error('복사 실패:', err));
+            .then(() => alert('Result copied to clipboard!'))
+            .catch(err => console.error('Copy failed:', err));
         });
       }
     });
   </script>
 </body>
 </html>
+

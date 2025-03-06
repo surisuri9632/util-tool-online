@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timestamp Converter - Convert Dates and Timestamps</title>
+    <meta name="description" content="Convert timestamps to human-readable dates and vice-versa using this free online tool.">
+    <meta name="keywords" content="timestamp, date converter, timestamp converter, date to timestamp, timestamp to date, time conversion, unix timestamp, epoch time">
+    <meta name="author" content="SOFTICA">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Timestamp Converter">
+    <meta property="og:description" content="Convert timestamps and dates easily.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://util-tool-online.com/timestamp-converter">
+    <meta property="og:image" content="https://util-tool-online.com/images/util-tool-online.png">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="https://util-tool-online.com/images/util-tool-online.png">
+    <meta name="twitter:title" content="Timestamp Converter">
+    <meta name="twitter:description" content="Convert dates and timestamps with this convenient tool.">
+    <meta name="twitter:image" content="https://util-tool-online.com/images/util-tool-online.png">
+
+    <link rel="icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css">    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { font-family: sans-serif; }
+        .result-box { padding: 10px; border: 1px solid #ccc; margin-bottom: 10px; }
+        .result-box h3 { margin-top: 0; }
+    </style>
+</head>
+<body>
+    <%- include('partials/header') %>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Left Menu -->
+            <div class="col-md-2">
+                <%- include('partials/left-menu') %>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10">
+                <h1>Timestamp Converter</h1>
+
+                <section>
+                    <h2>Enter Timestamp</h2>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" id="timestampInput" placeholder="Enter timestamp (e.g., 1678886400)">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="getCurrentTimestamp()">Current Timestamp</button>
+                    <button type="button" class="btn btn-primary" onclick="convertTimestamp()">Convert</button>
+                    <button type="button" class="btn btn-secondary" onclick="clearTimestampForm()">Clear</button>
+                </section>
+
+                <section class="mt-5">
+                    <h2>Enter Date</h2>
+                    <div class="mb-3">
+                        <input type="datetime-local" class="form-control" id="dateInput">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="getCurrentDate()">Current Date</button>
+                    <button type="button" class="btn btn-primary" onclick="convertDate()">Convert</button>
+                    <button type="button" class="btn btn-secondary" onclick="clearDateForm()">Clear</button>
+                </section>
+
+                <section class="mt-5" id="results-section">
+                    <h2>Results</h2>
+                    <div id="results"></div>
+                </section>
+
+
+                <section class="mt-5">
+                    <h2>About Timestamps</h2>
+                    <p>A timestamp is a sequential number that represents a point in time.  It is commonly expressed as the number of seconds (or milliseconds) that have elapsed since the Unix epoch (January 1, 1970, 00:00:00 UTC).  Timestamps are used extensively in computer systems for storing and comparing dates and times.</p>
+
+                    <h3>Why Use Timestamps?</h3>
+                    <ul>
+                        <li><strong>Precise Time Representation:</strong> Provides a numerical representation of a specific point in time.</li>
+                        <li><strong>Easy Comparison:</strong>  Timestamps can be easily compared to determine which event occurred earlier or later.</li>
+                        <li><strong>Data Storage:</strong> Efficiently stores date and time information in databases and other systems.</li>
+                        <li><strong>Time Zone Independence (UTC):</strong>  Timestamps based on UTC are independent of time zones.</li>
+                    </ul>
+
+                    <h3>Advantages and Disadvantages</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Advantages</th>
+                                <th>Disadvantages</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Representation</td>
+                                <td>Numerical, easy to compare</td>
+                                <td>Not human-readable without conversion</td>
+                            </tr>
+                            <tr>
+                                <td>Storage</td>
+                                <td>Efficient storage</td>
+                                <td>Requires conversion for display to user</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </div>
+    <%- include('partials/footer') %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script>
+        function getCurrentTimestamp() {
+            document.getElementById('timestampInput').value = moment().unix();
+        }
+
+        function convertTimestamp() {
+            const timestamp = document.getElementById('timestampInput').value;
+            if (!timestamp) return; // Handle empty input
+            try {
+                const momentDate = moment.unix(timestamp);
+                displayResults(momentDate.format("YYYY-MM-DD HH:mm:ss"), momentDate.format("MMMM Do YYYY, h:mm:ss a"));
+
+            } catch (error) {
+                displayResults(null, "Invalid timestamp format!");
+            }
+        }
+
+        function clearTimestampForm() {
+            document.getElementById('timestampInput').value = '';
+            document.getElementById('results').innerHTML = '';
+        }
+
+
+        function getCurrentDate() {
+            const now = new Date();
+            document.getElementById('dateInput').value = now.toISOString().slice(0, 16);
+        }
+
+        function convertDate() {
+            const dateString = document.getElementById('dateInput').value;
+            if (!dateString) return; // Handle empty input
+
+            try {
+              const momentDate = moment(dateString);
+              displayResults(momentDate.unix(), momentDate.format("MMMM Do YYYY, h:mm:ss a"));
+            } catch (error) {
+              displayResults(null, "Invalid date format!");
+            }
+        }
+
+
+        function clearDateForm() {
+            document.getElementById('dateInput').value = '';
+            document.getElementById('results').innerHTML = '';
+        }
+
+        function displayResults(timestamp, date) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <div class="result-box">
+                    <h3>Timestamp:</h3>
+                    <p>${timestamp}</p>
+                </div>
+                <div class="result-box">
+                    <h3>Date:</h3>
+                    <p>${date}</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
+

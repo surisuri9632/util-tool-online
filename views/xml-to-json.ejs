@@ -1,116 +1,187 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO 최적화 태그 -->
-  <title>XML to JSON Converter - XML을 JSON으로 변환</title>
-  <meta name="description" content="무료 XML to JSON Converter를 사용하여 XML 데이터를 JSON으로 쉽게 변환하세요. 간단한 도구로 신속하게 데이터를 변환하고 유효성을 검사하세요.">
-  <meta name="keywords" content="XML to JSON, XML 변환기, JSON 변환기, XML 유효성 검사, XML JSON 도구">
-  <meta name="author" content="Hyunsoo">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Open Graph 태그 -->
-  <meta property="og:title" content="XML to JSON Converter">
-  <meta property="og:description" content="빠르고 쉬운 XML to JSON 변환 도구를 사용하여 XML 데이터를 JSON으로 변환하세요.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://util-tool-online.com/xml-to-json">
-  <meta property="og:image" content="https://util-tool-online.com/images/xml-to-json-tool-banner.png">
+    <!-- SEO Optimization -->
+    <title>XML to JSON Converter - Convert XML to JSON Data</title>
+    <meta name="description" content="Free online XML to JSON converter. Easily convert XML data to JSON format.  This tool helps developers and users quickly transform data between these formats.">
+    <meta name="keywords" content="XML to JSON, XML converter, JSON converter, XML parser, JSON parser, XML to JSON online, data conversion, XML data, JSON data, developer tools">
+    <meta name="author" content="SOFTICA">
 
-  <!-- Twitter Cards -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="XML to JSON Converter">
-  <meta name="twitter:description" content="XML 데이터를 JSON으로 변환하는 빠르고 쉬운 도구.">
-  <meta name="twitter:image" content="https://util-tool-online.com/images/xml-to-json-tool-banner.png">
+    <!-- Open Graph -->
+    <meta property="og:title" content="XML to JSON Converter">
+    <meta property="og:description" content="Convert XML to JSON format quickly and easily with this free online tool.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://util-tool-online.com/xml-to-json">  <!-- Update with your actual URL -->
+    <meta property="og:image" content="https://util-tool-online.com/images/util-tool-online.png"> <!-- Update with your image URL -->
 
-  <!-- 스타일 -->
-  <link rel="icon" href="/favicon.ico">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="https://util-tool-online.com/images/util-tool-online.png">
+    <meta name="twitter:title" content="XML to JSON Converter">
+    <meta name="twitter:description" content="Effortlessly convert XML to JSON data.">
+    <meta name="twitter:image" content="https://util-tool-online.com/images/util-tool-online.png"> <!-- Update with your image URL -->
+
+    <!-- Styles -->
+    <link rel="icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
-  <!-- 공통 헤더 -->
-  <%- include('partials/header') %>
+    <%- include('partials/header') %>
 
-  <div class="container mt-5">
-    <div class="row">
-      <!-- Left Menu -->
-      <div class="col-md-2">
-        <%- include('partials/left-menu') %>
-      </div>
-
-      <!-- Main Content -->
-      <div class="col-md-10">
-        <h1>XML to JSON Converter</h1>
-        <p>이 도구를 사용하여 XML 데이터를 JSON으로 변환하세요. 간단한 입력과 클릭만으로 데이터를 손쉽게 변환할 수 있습니다.</p>
-        
-        <!-- XML 입력 섹션 -->
-        <section>
-          <h2>XML 입력</h2>
-          <form id="xml-to-json-form" action="/xml-to-json" method="POST">
-            <div class="mb-3">
-              <label for="xmlInput" class="form-label">XML 입력</label>
-              <textarea class="form-control" id="xmlInput" name="xmlInput" rows="8" required></textarea>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Left Menu -->
+            <div class="col-md-2">
+                <%- include('partials/left-menu') %>
             </div>
-            <button type="submit" class="btn btn-primary">변환</button>
-            <button type="button" class="btn btn-secondary" id="clear-btn">Clear</button>
-          </form>
-        </section>
 
-        <!-- 결과 섹션 -->
-        <section class="mt-5">
-          <h2>JSON 결과</h2>
-          <% if (error) { %>
-            <div class="alert alert-danger" id="error-message"><%= error %></div>
-          <% } %>
-          <% if (result) { %>
-            <pre class="bg-light p-3 rounded" id="result"><%= result %></pre>
-            <button class="btn btn-success mt-2" id="copy-btn">클립보드에 복사</button>
-          <% } %>
-        </section>
+            <!-- Main Content -->
+            <div class="col-md-10">
+                <h1>XML to JSON Converter</h1>
+                <p>This tool converts XML data to JSON format.  Simply paste your XML data, and click "Convert" to get the equivalent JSON representation.</p>
 
-        <!-- 설명 섹션 -->
-        <section class="mt-5">
-          <h2>XML to JSON 도구란?</h2>
-          <p>XML to JSON 도구는 XML 데이터를 JSON 형식으로 변환하여 개발자와 비개발자가 쉽게 사용할 수 있도록 도와줍니다.</p>
-          <h3>이 도구는 다음과 같은 기능을 제공합니다:</h3>
-          <ul>
-            <li>XML 데이터를 JSON 형식으로 변환</li>
-            <li>유효하지 않은 XML 형식 감지</li>
-            <li>JSON 결과를 클립보드에 복사</li>
-          </ul>
-        </section>
-      </div>
+                <!-- XML Input Section -->
+                <section>
+                    <h2>XML Input</h2>
+                    <form id="xml-to-json-form" action="/xml-to-json" method="POST">
+                        <div class="mb-3">
+                            <label for="xmlInput" class="form-label">Enter XML Data</label>
+                            <textarea class="form-control" id="xmlInput" name="xmlInput" rows="8" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Convert</button>
+                        <button type="button" class="btn btn-secondary" id="clear-btn">Clear</button>
+                    </form>
+                </section>
+
+                <!-- Result Section -->
+                <section class="mt-5">
+                    <h2>JSON Result</h2>
+                    <% if (error) { %>
+                        <div class="alert alert-danger" id="error-message"><%= error %></div>
+                    <% } %>
+                    <% if (result) { %>
+                        <pre class="bg-light p-3 rounded" id="result"><%= result %></pre>
+                        <button class="btn btn-success mt-2" id="copy-btn">Copy to Clipboard</button>
+                    <% } %>
+                </section>
+
+                <!-- About XML and JSON Section -->
+                <section class="mt-5">
+                    <h2>About XML and JSON</h2>
+                    <h3>What is XML?</h3>
+                    <p>
+                        XML (Extensible Markup Language) is a markup language designed for encoding documents in a format that is both human-readable and machine-readable.  It's often used for data storage and transport, particularly in structured data environments.
+                    </p>
+                    <h3>What is JSON?</h3>
+                    <p>
+                        JSON (JavaScript Object Notation) is a lightweight data-interchange format that is easy for humans to read and write and easy for machines to parse and generate. It's frequently used for data transmission between a server and a web application.
+                    </p>
+                    <h3>Why Convert Between XML and JSON?</h3>
+                    <p>Converting between XML and JSON allows you to leverage the strengths of each format.  For instance, you might receive data in XML and need to process it in a JSON-compatible system.</p>
+
+                    <h3>XML vs. JSON: Advantages and Disadvantages</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>XML</th>
+                                <th>JSON</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Readability</td>
+                                <td>Good</td>
+                                <td>Excellent</td>
+                            </tr>
+                            <tr>
+                                <td>Verbosity</td>
+                                <td>More verbose</td>
+                                <td>Less verbose</td>
+                            </tr>
+                            <tr>
+                                <td>Data Size</td>
+                                <td>Larger</td>
+                                <td>Smaller</td>
+                            </tr>
+                            <tr>
+                                <td>Parsing Speed</td>
+                                <td>Slower</td>
+                                <td>Faster</td>
+                            </tr>
+                            <tr>
+                                <td>Flexibility</td>
+                                <td>More flexible (customizable tags)</td>
+                                <td>Less flexible (fixed structure)</td>
+                            </tr>
+                            <tr>
+                                <td>Schema Support</td>
+                                <td>Strong schema support (XSD)</td>
+                                <td>Limited schema support (JSON Schema)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Examples</h3>
+                    <p><strong>XML Example:</strong></p>
+                    <pre><code class="language-xml">
+&lt;bookstore&gt;
+  &lt;book category="cooking"&gt;
+    &lt;title&gt;Everyday Italian&lt;/title&gt;
+    &lt;author&gt;Giada De Laurentiis&lt;/author&gt;
+    &lt;year&gt;2005&lt;/year&gt;
+    &lt;price&gt;30.00&lt;/price&gt;
+  &lt;/book&gt;
+&lt;/bookstore&gt;
+                    </code></pre>
+                    <p><strong>Equivalent JSON:</strong></p>
+                    <pre><code class="language-json">
+{
+  "bookstore": {
+    "book": {
+      "@category": "cooking",
+      "title": "Everyday Italian",
+      "author": "Giada De Laurentiis",
+      "year": "2005",
+      "price": "30.00"
+    }
+  }
+}
+                    </code></pre>
+                </section>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <!-- 공통 푸터 -->
-  <%- include('partials/footer') %>
+    <%- include('partials/footer') %>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const clearBtn = document.getElementById('clear-btn');
-      const xmlInput = document.getElementById('xmlInput');
-      const result = document.getElementById('result');
-      const errorMessage = document.getElementById('error-message');
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const clearBtn = document.getElementById('clear-btn');
+            const xmlInput = document.getElementById('xmlInput');
+            const result = document.getElementById('result');
+            const errorMessage = document.getElementById('error-message');
 
-      // Clear 버튼 동작
-      clearBtn?.addEventListener('click', () => {
-        xmlInput.value = '';
-        if (result) result.innerText = '';
-        if (errorMessage) errorMessage.style.display = 'none';
-      });
+            clearBtn?.addEventListener('click', () => {
+                xmlInput.value = '';
+                if (result) result.innerText = '';
+                if (errorMessage) errorMessage.style.display = 'none';
+            });
 
-      // 클립보드 복사 버튼 동작
-      const copyBtn = document.getElementById('copy-btn');
-      if (copyBtn && result) {
-        copyBtn.addEventListener('click', () => {
-          navigator.clipboard.writeText(result.innerText)
-            .then(() => alert('결과가 클립보드에 복사되었습니다!'))
-            .catch(err => console.error('복사 실패:', err));
+            const copyBtn = document.getElementById('copy-btn');
+            if (copyBtn && result) {
+              copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(result.innerText)
+                  .then(() => alert('Result copied to clipboard!'))
+                  .catch(err => console.error('Copy failed:', err));
+              });
+            }
         });
-      }
-    });
-  </script>
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.css">
 </body>
 </html>

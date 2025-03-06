@@ -1,23 +1,29 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- SEO 최적화 -->
-  <title>글자수 세기 도구 - 텍스트 길이 계산</title>
-  <meta name="description" content="텍스트의 전체 글자 수, 띄어쓰기를 제외한 글자 수, 단어 수 및 라인 수를 쉽게 계산해보세요.">
-  <meta name="keywords" content="글자수 세기, 텍스트 길이, 단어 개수 계산, 줄수 계산, 텍스트 분석 도구">
-  <meta name="author" content="Hyunsoo">
+  <!-- SEO Optimization -->
+  <title>Word Counter Tool - Count Words, Characters, and Lines</title>
+  <meta name="description" content="Quickly count words, characters, and lines in your text with our free online word counter.  A simple tool for writers, students, and developers.">
+  <meta name="keywords" content="word count, word counter, character count, line count, text analysis, text tool, online word counter, word counter tool, character counter, line counter">
+  <meta name="author" content="SOFTICA">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="글자수 세기 도구">
-  <meta property="og:description" content="글자수, 단어 수, 줄 수 계산 도구로 텍스트 분석을 간편하게 수행하세요.">
+  <meta property="og:title" content="Word Counter Tool">
+  <meta property="og:description" content="Count words, characters, and lines in your text with this free online tool.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://util-tool-online.com/word-counter">
-  <meta property="og:image" content="https://util-tool-online.com/images/word-counter-banner.png">
+  <meta property="og:url" content="https://util-tool-online.com/word-counter"> <!-- Update with your actual URL -->
+  <meta property="og:image" content="https://util-tool-online.com/images/util-tool-online.png"> <!-- Update with your image URL -->
 
-  <!-- 스타일 -->
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="https://util-tool-online.com/images/util-tool-online.png">
+  <meta name="twitter:title" content="Word Counter Tool">
+  <meta name="twitter:description" content="Easily count words, characters, and lines in your text.">
+  <meta name="twitter:image" content="https://util-tool-online.com/images/util-tool-online.png"> <!-- Update with your image URL -->
+
+  <!-- Styles -->
   <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -34,68 +40,87 @@
 
       <!-- Main Content -->
       <div class="col-md-10">
-        <h1>글자수 세기 도구</h1>
-        <p>
-          글자수 세기 도구를 사용하여 텍스트의 총 글자 수, 띄어쓰기를 제외한 글자 수, 
-          단어 수 및 줄 수를 간편하게 계산하세요.
-        </p>
+        <h1>Word Counter Tool</h1>
+        <p>This tool helps you quickly count the number of words, characters (with and without spaces), and lines in your text.</p>
 
-        <!-- 사용법 -->
+        <!-- Usage Instructions -->
         <section class="mt-4">
-          <h2>사용 방법</h2>
+          <h2>How to Use</h2>
           <ol>
-            <li>입력란에 텍스트를 입력합니다.</li>
-            <li>"글자수 계산" 버튼을 클릭하여 결과를 확인합니다.</li>
-            <li>"Clear" 버튼을 사용하여 입력 필드와 결과를 초기화하세요.</li>
+            <li>Paste your text into the input box below.</li>
+            <li>Click the "Count" button.</li>
+            <li>The results will be displayed below.</li>
+            <li>Click "Clear" to reset.</li>
           </ol>
         </section>
 
-        <!-- 입력 섹션 -->
+        <!-- Input Section -->
         <section class="mt-5">
-          <h2>텍스트 입력</h2>
+          <h2>Enter Text</h2>
           <form id="word-counter-form" action="/word-counter" method="POST">
             <div class="mb-3">
-              <label for="text" class="form-label">텍스트 입력</label>
+              <label for="text" class="form-label">Enter Text</label>
               <textarea class="form-control" id="text" name="text" rows="6" required><%= text || '' %></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">글자수 계산</button>
+            <button type="submit" class="btn btn-primary">Count</button>
             <button type="button" class="btn btn-secondary" id="clear-btn">Clear</button>
           </form>
         </section>
 
-        <!-- 결과 섹션 -->
-        <% if (charCount !== null && withoutSpacesCount !== null && wordCount !== null && lineCount !== null) { %>
+        <!-- Result Section -->
+        <% if (charCount !== null) { %>
         <section class="mt-5">
-          <h2>결과</h2>
+          <h2>Results</h2>
           <ul>
-            <li><strong>전체 글자 수:</strong> <%= charCount %> 글자</li>
-            <li><strong>띄어쓰기를 제외한 글자 수:</strong> <%= withoutSpacesCount %> 글자</li>
-            <li><strong>단어 수:</strong> <%= wordCount %> 단어</li>
-            <li><strong>줄 수:</strong> <%= lineCount %> 줄</li>
+            <li><strong>Total Characters:</strong> <%= charCount %></li>
+            <li><strong>Characters (without spaces):</strong> <%= withoutSpacesCount %></li>
+            <li><strong>Words:</strong> <%= wordCount %></li>
+            <li><strong>Lines:</strong> <%= lineCount %></li>
           </ul>
         </section>
         <% } %>
 
-        <!-- Clear 및 복사 스크립트 -->
+        <!-- About Word Counter Section -->
+        <section class="mt-5">
+          <h2>About This Word Counter</h2>
+          <p>A word counter is a tool used to determine the number of words, characters, and lines within a given text.  It's useful for:</p>
+          <ul>
+            <li><strong>Writing and Editing:</strong> Meeting word count requirements for essays, articles, etc.</li>
+            <li><strong>SEO:</strong> Analyzing text length for search engine optimization.</li>
+            <li><strong>Data Analysis:</strong> Getting quick statistics about text data.</li>
+            <li><strong>Software Development:</strong> Counting code lines or characters.</li>
+          </ul>
+
+          <h3>Advantages</h3>
+          <ul>
+            <li>Speed and Efficiency: Quickly obtain text statistics.</li>
+            <li>Accuracy: Provides precise counts.</li>
+            <li>Simplicity: Easy to use.</li>
+          </ul>
+
+          <h3>Disadvantages</h3>
+          <ul>
+            <li>Limited Analysis:  Provides only basic text statistics; doesn't offer deeper linguistic analysis.</li>
+            <li>Context-Dependent: Word counting can be affected by punctuation and formatting.</li>
+          </ul>
+
+          <h3>Examples</h3>
+          <p><strong>Example 1:</strong></p>
+          <p>Input: "This is a sentence." Output: Total Characters: 18, Characters (without spaces): 14, Words: 4, Lines: 1</p>
+          <p><strong>Example 2:</strong></p>
+          <p>Input: "This is a longer text with multiple lines.\nThis is the second line."</p>
+          <p>Output:  Total Characters: 66, Characters (without spaces): 54, Words: 14, Lines: 2</p>
+        </section>
+
+        <!-- Clear Button Script -->
         <script>
           document.addEventListener('DOMContentLoaded', () => {
             const clearBtn = document.getElementById('clear-btn');
             const textArea = document.getElementById('text');
 
-            // Clear 버튼 동작
             clearBtn?.addEventListener('click', () => {
-              textArea.value = ''; // 입력 필드 초기화
+              textArea.value = '';
             });
-
-            // 클립보드 복사 버튼 동작
-            const copyBtn = document.getElementById('copy-btn');
-            if (copyBtn && textArea.value) {
-              copyBtn.addEventListener('click', () => {
-                navigator.clipboard.writeText(textArea.value)
-                  .then(() => alert('입력 텍스트가 클립보드에 복사되었습니다!'))
-                  .catch(err => console.error('복사 실패:', err));
-              });
-            }
           });
         </script>
       </div>

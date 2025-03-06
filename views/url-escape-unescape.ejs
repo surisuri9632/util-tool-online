@@ -1,35 +1,34 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- SEO 최적화 -->
-  <title>URL Escape / Unescape - 문자열 변환 도구</title>
-  <meta name="description" content="URL Escape / Unescape 도구를 사용하여 문자열을 URL-safe 형식으로 변환하거나 복원하세요.">
-  <meta name="keywords" content="URL Escape, URL Unescape, URL 인코딩, URL 디코딩, 문자열 변환, 개발자 도구">
-  <meta name="author" content="Hyunsoo">
+  <!-- SEO Optimization -->
+  <title>URL Encode/Decode - URL Encoding and Decoding Tool</title>
+  <meta name="description" content="Encode and decode URLs with our free online URL encoder/decoder.  Easily make your URLs safe for web transmission and decode encoded URLs.">
+  <meta name="keywords" content="URL encode, URL decode, URL encoding, URL decoding, URL encoder, URL decoder, percent encoding, URL-safe, online URL encoding, online URL decoding, web developer tools">
+  <meta name="author" content="SOFTICA">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="URL Escape / Unescape Converter">
-  <meta property="og:description" content="URL-safe 문자열 변환 도구로 데이터를 인코딩 또는 디코딩하세요.">
+  <meta property="og:title" content="URL Encode/Decode Tool">
+  <meta property="og:description" content="Encode and decode URLs for safe web transmission.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://util-tool-online.com/url-escape-unescape">
-  <meta property="og:image" content="https://util-tool-online.com/images/url-tool-banner.png">
+  <meta property="og:url" content="https://util-tool-online.com/url-escape-unescape"> <!-- Update with your actual URL -->
+  <meta property="og:image" content="https://util-tool-online.com/images/url-tool-banner.png"> <!-- Update with your image URL -->
 
   <!-- Twitter Cards -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="URL Escape / Unescape Converter">
-  <meta name="twitter:description" content="URL-safe 문자열을 변환하거나 복원하세요.">
-  <meta name="twitter:image" content="https://util-tool-online.com/images/url-tool-banner.png">
+  <meta name="twitter:card" content="https://util-tool-online.com/images/util-tool-online.png">
+  <meta name="twitter:title" content="URL Encode/Decode Tool">
+  <meta name="twitter:description" content="Quickly encode and decode URLs.">
+  <meta name="twitter:image" content="https://util-tool-online.com/images/url-tool-banner.png"> <!-- Update with your image URL -->
 
-  <!-- 스타일 -->
+  <!-- Styles -->
   <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
-  <!-- 공통 헤더 -->
   <%- include('partials/header') %>
 
   <div class="container mt-5">
@@ -38,83 +37,121 @@
       <div class="col-md-2">
         <%- include('partials/left-menu') %>
       </div>
-      
+
       <!-- Main Content -->
       <div class="col-md-10">
-        <h1>URL Escape / Unescape Converter</h1>
+        <h1>URL Encode/Decode</h1>
         <p>
-          URL Escape / Unescape 도구를 사용하여 텍스트를 URL-safe 형식으로 변환하거나, 
-          URL-safe 형식의 텍스트를 원래 형식으로 복원할 수 있습니다. 간단한 단계로 데이터를 변환하세요.
+          This tool encodes and decodes URLs using percent-encoding (URL encoding). This is essential for safely transmitting data containing special characters within URLs.
         </p>
 
-        <!-- 사용법 -->
+        <!-- Usage Instructions -->
         <section class="mt-4">
-          <h2>사용 방법</h2>
+          <h2>How to Use</h2>
           <ol>
-            <li>입력란에 변환할 텍스트를 입력합니다.</li>
-            <li>"URL Escape" 또는 "URL Unescape"를 선택합니다.</li>
-            <li>"변환" 버튼을 클릭하여 결과를 확인합니다.</li>
-            <li>필요하다면 "클립보드에 복사" 버튼을 클릭하여 결과를 복사합니다.</li>
-            <li>"Clear" 버튼을 사용하여 입력 필드와 결과를 초기화하세요.</li>
+            <li>Enter the text you want to encode or decode in the input field.</li>
+            <li>Select "Encode" or "Decode" from the dropdown menu.</li>
+            <li>Click the "Convert" button to see the result.</li>
+            <li>Optionally, click "Copy to Clipboard" to copy the result.</li>
+            <li>Use the "Clear" button to reset the input and output fields.</li>
           </ol>
         </section>
 
-        <!-- 입력 섹션 -->
+        <!-- Input Section -->
         <section class="mt-5">
-          <h2>URL 변환 도구</h2>
+          <h2>Encode/Decode URL</h2>
           <form id="url-escape-unescape-form" action="/url-escape-unescape" method="POST">
             <div class="mb-3">
-              <label for="text" class="form-label">텍스트 입력</label>
+              <label for="text" class="form-label">Enter Text</label>
               <textarea class="form-control" id="text" name="text" rows="4" required></textarea>
             </div>
             <div class="mb-3">
-              <label for="mode" class="form-label">동작 선택</label>
+              <label for="mode" class="form-label">Select Action</label>
               <select class="form-select" id="mode" name="mode" required>
-                <option value="escape">URL Escape</option>
-                <option value="unescape">URL Unescape</option>
+                <option value="escape">Encode (escape)</option>
+                <option value="unescape">Decode (unescape)</option>
               </select>
             </div>
-            <button type="submit" class="btn btn-primary">변환</button>
+            <button type="submit" class="btn btn-primary">Convert</button>
             <button type="button" class="btn btn-secondary" id="clear-btn">Clear</button>
           </form>
         </section>
 
-        <!-- 결과 섹션 -->
+        <!-- Result Section -->
         <section class="mt-5">
-          <h2>결과</h2>
+          <h2>Result</h2>
           <% if (error) { %>
             <div class="alert alert-danger" id="error-message"><%= error %></div>
           <% } %>
           <% if (result) { %>
             <pre class="bg-light p-3 rounded" id="result"><%= result %></pre>
-            <button class="btn btn-success mt-2" id="copy-btn">클립보드에 복사</button>
+            <button class="btn btn-success mt-2" id="copy-btn">Copy to Clipboard</button>
           <% } %>
         </section>
 
-        <!-- 설명 섹션 -->
+        <!-- About URL Encoding/Decoding Section -->
         <section class="mt-5">
-          <h2>URL Escape와 Unescape란?</h2>
+          <h2>About URL Encoding and Decoding</h2>
+          <h3>What is URL Encoding (Percent-Encoding)?</h3>
           <p>
-            URL Escape는 특수 문자를 URL-safe 형식으로 변환하는 프로세스입니다. 
-            Unescape는 URL-safe 형식을 원래의 텍스트로 복원합니다. 이 도구는 
-            데이터를 안전하게 전송하거나 저장할 때 매우 유용합니다.
+            URL encoding, also known as percent-encoding, is a mechanism for encoding data in a Uniform Resource Identifier (URI). It converts unsafe characters (characters that are not allowed in a URL) into a format that is safe for transmission over the internet.  These unsafe characters are typically replaced with a "%" followed by a two-digit hexadecimal representation of the character's ASCII code.
           </p>
-          <h3>이 도구의 주요 기능:</h3>
+          <h3>What is URL Decoding?</h3>
+          <p>
+            URL decoding is the reverse process of URL encoding. It takes a percent-encoded string and converts it back into its original form. This is necessary when receiving data that has been encoded for transmission.
+          </p>
+          <h3>Why Use URL Encoding/Decoding?</h3>
           <ul>
-            <li>텍스트를 URL-safe 형식으로 변환 (Escape)</li>
-            <li>URL-safe 형식을 원래 텍스트로 변환 (Unescape)</li>
-            <li>결과를 클립보드에 복사 가능</li>
-            <li>입력 필드와 결과를 간단히 초기화 가능</li>
+            <li><strong>Safe URL Transmission:</strong> Ensures that special characters are correctly handled in URLs.</li>
+            <li><strong>Data Integrity:</strong> Prevents data corruption during URL transmission.</li>
+            <li><strong>Cross-Platform Compatibility:</strong> Enables consistent handling of URLs across different systems.</li>
+          </ul>
+
+          <h3>Advantages and Disadvantages</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>URL Encoding</th>
+                <th>URL Decoding</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Purpose</td>
+                <td>Makes URLs safe for transmission</td>
+                <td>Restores original data from encoded URLs</td>
+              </tr>
+              <tr>
+                <td>Complexity</td>
+                <td>Relatively simple</td>
+                <td>Relatively simple</td>
+              </tr>
+              <tr>
+                <td>Security</td>
+                <td>Increases security by preventing injection attacks</td>
+                <td>No direct security impact</td>
+              </tr>
+              <tr>
+                <td>Readability</td>
+                <td>Reduces readability of URLs</td>
+                <td>Restores readability</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Examples</h3>
+          <ul>
+            <li><strong>Encoding:</strong> Input: "Hello World!" Output: `Hello%20World!`</li>
+            <li><strong>Decoding:</strong> Input: `Hello%20World!` Output: "Hello World!"</li>
           </ul>
         </section>
       </div>
     </div>
   </div>
 
-  <!-- 공통 푸터 -->
   <%- include('partials/footer') %>
 
-  <!-- 클라이언트 스크립트 -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const clearBtn = document.getElementById('clear-btn');
@@ -122,20 +159,18 @@
       const result = document.getElementById('result');
       const errorMessage = document.getElementById('error-message');
 
-      // Clear 버튼 동작
       clearBtn?.addEventListener('click', () => {
-        textArea.value = ''; // 입력 필드 초기화
-        if (result) result.innerText = ''; // 결과 영역 초기화
-        if (errorMessage) errorMessage.style.display = 'none'; // 에러 메시지 숨김
+        textArea.value = '';
+        if (result) result.innerText = '';
+        if (errorMessage) errorMessage.style.display = 'none';
       });
 
-      // 클립보드 복사 버튼 동작
       const copyBtn = document.getElementById('copy-btn');
       if (copyBtn && result) {
         copyBtn.addEventListener('click', () => {
           navigator.clipboard.writeText(result.innerText)
-            .then(() => alert('결과가 클립보드에 복사되었습니다!'))
-            .catch(err => console.error('복사 실패:', err));
+            .then(() => alert('Result copied to clipboard!'))
+            .catch(err => console.error('Copy failed:', err));
         });
       }
     });

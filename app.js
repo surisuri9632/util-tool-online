@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const bodyParser = require('body-parser');
 const app = express();
 const PORT = 3000;
 
@@ -8,16 +7,16 @@ const PORT = 3000;
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Sitemap 포함 라우트 설정
-const routes = require('./routes/index');
-app.use('/', routes);
+// Body Parser 설정 (라우터 설정 전에 추가)
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// 정적 파일 경로 설정 (Sitemap 라우트 뒤에 추가)
+// 정적 파일 경로 설정
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Body Parser 설정
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// 라우트 설정
+const routes = require('./routes/index');
+app.use('/', routes);
 
 // 서버 시작
 app.listen(PORT, () => {

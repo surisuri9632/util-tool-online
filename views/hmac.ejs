@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HMAC Hash Generator</title>
+  <meta name="description" content="Generate HMAC hashes for your data using this free online tool.">
+  <meta name="keywords"
+    content="HMAC, hash, hashing, HMAC generator, online HMAC, keyed-hash, message authentication code, data integrity, data authentication">
+  <meta name="author" content="SOFTICA">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="HMAC Hash Generator">
+  <meta property="og:description" content="Generate HMAC hashes quickly and securely.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://util-tool-online.com/hmac">
+  <meta property="og:image" content="https://util-tool-online.com/images/util-tool-online.png">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="https://util-tool-online.com/images/util-tool-online.png">
+  <meta name="twitter:title" content="HMAC Hash Generator">
+  <meta name="twitter:description" content="Generate secure HMAC hashes online.">
+  <meta name="twitter:image" content="https://util-tool-online.com/images/util-tool-online.png">
+
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    .result-box {
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+
+    .result-box h3 {
+      margin-top: 0;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+  </style>
+</head>
+
+<body>
+  <%- include('partials/header') %>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-2">
+          <%- include('partials/left-menu') %>
+        </div>
+        <div class="col-md-10">
+          <h1>HMAC Hash Generator</h1>
+          <p>Generate HMAC hashes for your data.</p>
+
+          <section>
+            <h2>Enter Data</h2>
+            <form id="hmac-form" action="/hmac" method="post">
+              <div class="mb-3">
+                <label for="data" class="form-label">Data:</label>
+                <textarea class="form-control" id="data" name="data" rows="6"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="key" class="form-label">Secret Key:</label>
+                <input type="text" class="form-control" id="key" name="key" required>
+              </div>
+              <div class="mb-3">
+                <label for="algorithm" class="form-label">Algorithm:</label>
+                <select class="form-select" id="algorithm" name="algorithm">
+                  <option value="md5">MD5</option>
+                  <option value="sha1">SHA-1</option>
+                  <option value="sha224">SHA-224</option>
+                  <option value="sha256">SHA-256</option>
+                  <option value="sha384">SHA-384</option>
+                  <option value="sha512">SHA-512</option>
+                  <option value="sha512/224">SHA-512/224</option>
+                  <option value="sha512/256">SHA-512/256</option>
+                  <option value="sha3-224">SHA3-224</option>
+                  <option value="sha3-256">SHA3-256</option>
+                  <option value="sha3-384">SHA3-384</option>
+                  <option value="sha3-512">SHA3-512</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="outputFormat" class="form-label">Output Format:</label>
+                <select class="form-select" id="outputFormat" name="outputFormat">
+                  <option value="hex">Hex</option>
+                  <option value="base64">Base64</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Generate HMAC</button>
+              <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
+            </form>
+          </section>
+
+          <section class="mt-5" id="results-section">
+            <h2>Result</h2>
+            <% if (error) { %>
+              <div class="alert alert-danger">
+                <%= error %>
+              </div>
+              <% } %>
+                <% if (hmac) { %>
+                  <div class="result-box">
+                    <h3>HMAC Hash:</h3>
+                    <pre><%= hmac %></pre>
+                    <button class="btn btn-success mt-2" id="copy-btn">Copy to Clipboard</button>
+                  </div>
+                  <% } %>
+          </section>
+
+          <section class="mt-5">
+            <h2>About HMAC</h2>
+            <p>HMAC (Hash-based Message Authentication Code) is a keyed hash function used to provide data integrity and
+              authentication. It combines a cryptographic hash function (like SHA-256 or SHA-512) with a secret key.</p>
+
+            <h3>Why Use HMAC?</h3>
+            <ul>
+              <li><strong>Data Integrity:</strong> Verify that data hasn't been tampered with.</li>
+              <li><strong>Data Authentication:</strong> Verify that data originates from a trusted source.</li>
+              <li><strong>Security:</strong> Provides strong authentication when a secret key is kept confidential.</li>
+            </ul>
+
+
+            <h3>Examples</h3>
+            <p><strong>Example 1:</strong> Data: "My secret message" Key: "mysecretkey" Algorithm: SHA-256 Output: (HMAC
+              hash)</p>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <%- include('partials/footer') %>
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const copyBtn = document.getElementById('copy-btn');
+          const hashResult = document.querySelector('pre');
+          if (copyBtn && hashResult) {
+            copyBtn.addEventListener('click', () => {
+              navigator.clipboard.writeText(hashResult.textContent.trim())
+                .then(() => alert('Hash copied to clipboard!'))
+                .catch(err => console.error('Copy failed:', err));
+            });
+          }
+
+          //Remove this event listener because it was clearing the inputs
+          // const clearBtn = document.querySelector('button[type="button"]');
+          // const inputArea = document.querySelectorAll('textarea, input');
+          // clearBtn.addEventListener('click', () => {
+          //   inputArea.forEach(el => el.value = '');
+          //   document.getElementById('results-section').innerHTML = '<h2>Result</h2>';
+          // })
+
+          //This function only clears the results area
+          const clearBtn = document.querySelector('button[type="button"]');
+          clearBtn.addEventListener('click', () => {
+            document.getElementById('results-section').innerHTML = '<h2>Result</h2>';
+          });
+        });
+      </script>
+</body>
+
+</html>

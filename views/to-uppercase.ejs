@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- SEO 최적화 -->
-  <title>소문자 -> 대문자 변환 도구 - 텍스트 변환</title>
-  <meta name="description" content="소문자를 대문자로 변환하는 간단한 텍스트 변환 도구. 텍스트를 입력하고 변환 결과를 확인하세요.">
-  <meta name="keywords" content="소문자 대문자 변환, 텍스트 변환 도구, 문자열 변환, 문자 변환 도구.">
-  <meta name="author" content="Hyunsoo">
+  <!-- SEO Optimization -->
+  <title>Convert Text to Uppercase - Online Text Converter</title>
+  <meta name="description" content="Convert text to uppercase instantly with our free online tool.  A simple and efficient way to transform lowercase text to uppercase.">
+  <meta name="keywords" content="uppercase, lowercase, text converter, convert to uppercase, convert to lowercase, text transformation, online text tool, string manipulation">
+  <meta name="author" content="SOFTICA">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="소문자 -> 대문자 변환 도구">
-  <meta property="og:description" content="간단한 소문자 대문자 변환 도구로 텍스트를 빠르게 변환하세요.">
+  <meta property="og:title" content="Uppercase Converter">
+  <meta property="og:description" content="Easily convert text to uppercase with this simple online tool.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://util-tool-online.com/to-uppercase">
-  <meta property="og:image" content="https://util-tool-online.com/images/to-uppercase-banner.png">
+  <meta property="og:url" content="https://util-tool-online.com/to-uppercase"> <!-- Update with your actual URL -->
+  <meta property="og:image" content="https://util-tool-online.com/images/util-tool-online.png"> <!-- Update with your image URL -->
 
   <!-- Twitter Cards -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="소문자 -> 대문자 변환 도구">
-  <meta name="twitter:description" content="텍스트를 빠르게 소문자에서 대문자로 변환하세요.">
-  <meta name="twitter:image" content="https://util-tool-online.com/images/to-uppercase-banner.png">
+  <meta name="twitter:card" content="https://util-tool-online.com/images/util-tool-online.png">
+  <meta name="twitter:title" content="Uppercase Converter">
+  <meta name="twitter:description" content="Convert lowercase text to uppercase quickly and easily.">
+  <meta name="twitter:image" content="https://util-tool-online.com/images/util-tool-online.png"> <!-- Update with your image URL -->
 
-  <!-- 스타일 -->
+  <!-- Styles -->
   <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -40,64 +40,91 @@
 
       <!-- Main Content -->
       <div class="col-md-10">
-        <h1>소문자 -> 대문자 변환 도구</h1>
-        <p>이 도구를 사용하여 텍스트의 소문자를 대문자로 변환하세요. 간단하고 빠르게 텍스트를 변환할 수 있습니다.</p>
+        <h1>Text to Uppercase Converter</h1>
+        <p>This tool converts lowercase letters in your text to uppercase. It's a quick and easy way to standardize text case.</p>
 
-        <!-- 사용법 -->
+        <!-- Usage Instructions -->
         <section class="mt-4">
-          <h2>사용 방법</h2>
+          <h2>How to Use</h2>
           <ol>
-            <li>입력란에 변환할 텍스트를 입력합니다.</li>
-            <li>"대문자로 변환" 버튼을 클릭하여 변환 결과를 확인합니다.</li>
-            <li>필요하다면 "클립보드에 복사" 버튼을 클릭하여 결과를 복사합니다.</li>
-            <li>"Clear" 버튼을 사용하여 입력 필드와 결과를 초기화하세요.</li>
+            <li>Enter your text in the input field below.</li>
+            <li>Click the "Convert to Uppercase" button.</li>
+            <li>The uppercase version of your text will appear in the result section.</li>
+            <li>Click "Copy to Clipboard" to copy the result.</li>
+            <li>Click "Clear" to reset the input and output fields.</li>
           </ol>
         </section>
 
-        <!-- 입력 섹션 -->
+        <!-- Input Section -->
         <section class="mt-5">
-          <h2>텍스트 입력</h2>
+          <h2>Enter Text</h2>
           <form id="uppercase-form" action="/to-uppercase" method="POST">
             <div class="mb-3">
-              <label for="text" class="form-label">텍스트 입력</label>
+              <label for="text" class="form-label">Enter Text</label>
               <textarea class="form-control" id="text" name="text" rows="6" required><%= text || '' %></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">대문자로 변환</button>
+            <button type="submit" class="btn btn-primary">Convert to Uppercase</button>
             <button type="button" class="btn btn-secondary" id="clear-btn">Clear</button>
           </form>
         </section>
 
-        <!-- 결과 섹션 -->
+        <!-- Result Section -->
         <% if (result) { %>
         <section class="mt-5">
-          <h2>결과</h2>
+          <h2>Result</h2>
           <pre class="bg-light p-3 rounded" id="result"><%= result %></pre>
-          <button class="btn btn-success mt-2" id="copy-btn">클립보드에 복사</button>
+          <button class="btn btn-success mt-2" id="copy-btn">Copy to Clipboard</button>
         </section>
         <% } %>
 
-        <!-- Clear 및 복사 스크립트 -->
+        <!-- About Uppercase Conversion -->
+        <section class="mt-5">
+          <h2>About Uppercase Conversion</h2>
+          <p>Converting text to uppercase involves changing all lowercase letters in a string to their uppercase equivalents. This is a common text manipulation task used in various applications, including:</p>
+          <ul>
+            <li><strong>Data Standardization:</strong> Ensuring consistency in data sets where case sensitivity might cause issues.</li>
+            <li><strong>Programming:</strong>  Often used in programming tasks to compare strings without case sensitivity.</li>
+            <li><strong>Text Processing:</strong> As part of larger text processing pipelines for tasks like searching or sorting.</li>
+          </ul>
+
+          <h3>Advantages</h3>
+          <ul>
+            <li><strong>Simplicity:</strong> Straightforward transformation.</li>
+            <li><strong>Consistency:</strong> Ensures uniform case across text.</li>
+            <li><strong>Case-Insensitive Comparisons:</strong> Useful for comparisons where case doesn't matter.</li>
+          </ul>
+
+          <h3>Disadvantages</h3>
+          <ul>
+            <li><strong>Loss of Information:</strong>  Original case is lost.</li>
+            <li><strong>Readability:</strong>  All uppercase text can be less readable than mixed-case text.</li>
+          </ul>
+
+          <h3>Examples</h3>
+          <ul>
+            <li>Input: "hello world" Output: "HELLO WORLD"</li>
+            <li>Input: "This Is A Sentence." Output: "THIS IS A SENTENCE."</li>
+          </ul>
+        </section>
+
+        <!-- Clear and Copy Script -->
         <script>
           document.addEventListener('DOMContentLoaded', () => {
             const clearBtn = document.getElementById('clear-btn');
             const textArea = document.getElementById('text');
-            const result = document.getElementById('result');
+            const resultArea = document.getElementById('result');
+            const copyBtn = document.getElementById('copy-btn');
 
-            // Clear 버튼 동작
             clearBtn?.addEventListener('click', () => {
-              textArea.value = ''; // 입력 필드 초기화
-              if (result) result.innerText = ''; // 결과 영역 초기화
+              textArea.value = '';
+              resultArea.textContent = '';
             });
 
-            // 클립보드 복사 버튼 동작
-            const copyBtn = document.getElementById('copy-btn');
-            if (copyBtn && result) {
-              copyBtn.addEventListener('click', () => {
-                navigator.clipboard.writeText(result.innerText)
-                  .then(() => alert('결과가 클립보드에 복사되었습니다!'))
-                  .catch(err => console.error('복사 실패:', err));
-              });
-            }
+            copyBtn?.addEventListener('click', () => {
+              navigator.clipboard.writeText(resultArea.textContent)
+                .then(() => alert('Result copied to clipboard!'))
+                .catch(err => console.error('Copy failed:', err));
+            });
           });
         </script>
       </div>

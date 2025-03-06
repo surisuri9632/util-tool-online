@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Encode/Decode - Encode and Decode HTML Entities</title>
+    <meta name="description" content="Encode and decode HTML entities with our free online tool.  Easily prepare your text for safe use in HTML documents.">
+    <meta name="keywords" content="HTML encode, HTML decode, HTML entities, HTML encoding, HTML decoding, encode HTML, decode HTML, special characters, web development, web design">
+    <meta name="author" content="SOFTICA">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="HTML Encode/Decode">
+    <meta property="og:description" content="Encode and decode HTML entities quickly and easily.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://util-tool-online.com/html-encode-decode">
+    <meta property="og:image" content="https://util-tool-online.com/images/util-tool-online.png">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="https://util-tool-online.com/images/util-tool-online.png">
+    <meta name="twitter:title" content="HTML Encode/Decode">
+    <meta name="twitter:description" content="Encode and decode HTML entities for safe use in HTML documents.">
+    <meta name="twitter:image" content="https://util-tool-online.com/images/util-tool-online.png">
+
+    <link rel="icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { font-family: sans-serif; }
+        .result-box { padding: 10px; border: 1px solid #ccc; margin-bottom: 10px; }
+        .result-box h3 { margin-top: 0; }
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+    </style>
+</head>
+<body>
+    <%- include('partials/header') %>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Left Menu -->
+            <div class="col-md-2">
+                <%- include('partials/left-menu') %>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10">
+                <h1>HTML Encode/Decode</h1>
+                <p>Encode and decode HTML entities to safely use text in HTML.</p>
+
+                <section>
+                    <h2>Enter Text</h2>
+                    <form id="encode-decode-form">
+                        <div class="mb-3">
+                            <label for="text" class="form-label">Enter Text:</label>
+                            <textarea class="form-control" id="text" rows="6"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="action" class="form-label">Action:</label>
+                            <select class="form-select" id="action">
+                                <option value="encode">Encode</option>
+                                <option value="decode">Decode</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="convertText()">Convert</button>
+                        <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
+                    </form>
+                </section>
+
+                <section class="mt-5" id="results-section">
+                  <h2>Results</h2>
+                  <div id="results"></div>
+                </section>
+
+
+                <section class="mt-5">
+                    <h2>About HTML Encoding/Decoding</h2>
+                    <p>HTML encoding converts special characters (like &lt;, &gt;, ", ', etc.) into their corresponding HTML entities. This is crucial for preventing these characters from being interpreted as HTML tags and causing errors or security vulnerabilities in your HTML documents.  Decoding reverses this process.</p>
+
+                    <h3>Why Use HTML Encoding/Decoding?</h3>
+                    <ul>
+                        <li><strong>Prevent XSS Attacks:</strong>  Encoding user-supplied data protects against Cross-Site Scripting (XSS) attacks.</li>
+                        <li><strong>Data Integrity:</strong>  Ensure your data is displayed correctly in HTML without unexpected behavior.</li>
+                        <li><strong>Correct Display:</strong>  Handles special characters such as &amp;, &lt;, &gt;, ", ', etc. correctly within HTML</li>
+                    </ul>
+
+                    <h3>Advantages and Disadvantages</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Encoding</th>
+                                <th>Decoding</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Purpose</td>
+                                <td>Makes text safe for HTML</td>
+                                <td>Restores original text from encoded form</td>
+                            </tr>
+                            <tr>
+                                <td>Security</td>
+                                <td>Reduces XSS vulnerabilities</td>
+                                <td>No direct security impact</td>
+                            </tr>
+                            <tr>
+                                <td>Readability</td>
+                                <td>Slightly reduces readability (encoded entities)</td>
+                                <td>Restores readability</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Examples</h3>
+                    <p><strong>Encoding Example:</strong> Input:  "&lt;p&gt;Hello, world!&lt;/p&gt;"  Output: `&lt;p&gt;Hello, world!&lt;/p&gt;` (or equivalent entities)</p>
+                    <p><strong>Decoding Example:</strong> Input: `&lt;p&gt;Hello, world!&lt;/p&gt;` (or equivalent entities) Output:  "&lt;p&gt;Hello, world!&lt;/p&gt;"</p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function convertText() {
+            const text = document.getElementById('text').value;
+            const action = document.getElementById('action').value;
+            let result;
+
+            if (action === 'encode') {
+                result = encodeHTML(text);
+            } else {
+                result = decodeHTML(text);
+            }
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <div class="result-box">
+                    <h3>Result:</h3>
+                    <pre><code class="language-html">${result}</code></pre>
+                    <button class="btn btn-success mt-2" onclick="copyToClipboard('${result}')">Copy to Clipboard</button>
+                </div>
+            `;
+            Prism.highlightAll();
+        }
+
+        function clearForm() {
+            document.getElementById('encode-decode-form').reset();
+            document.getElementById('results').innerHTML = '';
+        }
+
+        function encodeHTML(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function decodeHTML(text) {
+            return text
+                .replace(/&amp;/g, "&")
+                .replace(/&lt;/g, "<")
+                .replace(/&gt;/g, ">")
+                .replace(/&quot;/g, "\"")
+                .replace(/&#039;/g, "'");
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text)
+                .then(() => alert('Result copied to clipboard!'))
+                .catch(err => console.error('Copy failed:', err));
+        }
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.css">
+    <%- include('partials/footer') %>
+</body>
+</html>
+

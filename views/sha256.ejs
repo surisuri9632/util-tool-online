@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHA-256 Hash Generator</title>
+    <meta name="description" content="Generate SHA-256 hashes for your data using this free online tool.">
+    <meta name="keywords" content="SHA-256, hash, hashing, SHA-256 hash generator, online SHA-256, cryptographic hash, data security, hash function">
+    <meta name="author" content="SOFTICA">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="SHA-256 Hash Generator">
+    <meta property="og:description" content="Generate SHA-256 hashes quickly and securely.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://util-tool-online.com/sha256">  <!-- Replace with your URL -->
+    <meta property="og:image" content="https://util-tool-online.com/images/util-tool-online.png"> <!-- Replace with your image URL -->
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="https://util-tool-online.com/images/util-tool-online.png">
+    <meta name="twitter:title" content="SHA-256 Hash Generator">
+    <meta name="twitter:description" content="Generate secure SHA-256 hashes online.">
+    <meta name="twitter:image" content="https://util-tool-online.com/images/util-tool-online.png"> <!-- Replace with your image URL -->
+
+
+    <link rel="icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { font-family: sans-serif; }
+        .result-box { padding: 10px; border: 1px solid #ccc; margin-bottom: 10px; }
+        .result-box h3 { margin-top: 0; }
+        textarea { min-height: 150px; resize: vertical; }
+    </style>
+</head>
+<body>
+    <%- include('partials/header') %>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-2">
+                <%- include('partials/left-menu') %>
+            </div>
+            <div class="col-md-10">
+                <h1>SHA-256 Hash Generator</h1>
+                <p>Generate SHA-256 hashes for your data.</p>
+
+                <section>
+                    <h2>Enter Text</h2>
+                    <form id="sha256-form" action="/sha256" method="post">
+                        <div class="mb-3">
+                            <label for="input-text" class="form-label">Enter Text:</label>
+                            <textarea class="form-control" id="input-text" name="input-text" rows="6"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Generate Hash</button>
+                        <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
+                    </form>
+                </section>
+
+                <section class="mt-5" id="results-section">
+                  <h2>Result</h2>
+                  <% if (error) { %>
+                    <div class="alert alert-danger"><%= error %></div>
+                  <% } %>
+                  <% if (hash) { %>
+                    <div class="result-box">
+                        <h3>SHA-256 Hash:</h3>
+                        <pre><%= hash %></pre>
+                        <button class="btn btn-success mt-2" id="copy-btn">Copy to Clipboard</button>
+                    </div>
+                  <% } %>
+                </section>
+
+                <section class="mt-5">
+                    <h2>About SHA-256</h2>
+                    <p>SHA-256 (Secure Hash Algorithm 256-bit) is a cryptographic hash function that produces a 256-bit (32-byte) hash value.  It's considered a much more secure alternative to SHA-1.</p>
+
+                    <h3>Why Use SHA-256?</h3>
+                    <ul>
+                        <li><strong>Data Integrity:</strong> Verify data hasn't been altered.</li>
+                        <li><strong>Digital Signatures:</strong> Used in digital signature algorithms.</li>
+                        <li><strong>Blockchain Technology:</strong>  Fundamental to many blockchain implementations.</li>
+                    </ul>
+
+                    <h3>Examples</h3>
+                    <p><strong>Example 1:</strong> Input: "Hello, world!" Output: (SHA-256 hash)</p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const copyBtn = document.getElementById('copy-btn');
+            const hashResult = document.querySelector('pre');
+            if (copyBtn && hashResult) {
+                copyBtn.addEventListener('click', () => {
+                  navigator.clipboard.writeText(hashResult.textContent.trim())
+                    .then(() => alert('Hash copied to clipboard!'))
+                    .catch(err => console.error('Copy failed:', err));
+                });
+            }
+            const clearBtn = document.querySelector('button[type="button"]');
+            const inputArea = document.querySelector('textarea');
+            clearBtn.addEventListener('click', () => {
+              inputArea.value = '';
+              document.getElementById('results-section').innerHTML = '<h2>Result</h2>';
+            })
+        });
+    </script>
+</body>
+</html>

@@ -1,155 +1,195 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- SEO 최적화 -->
-  <title>XML to XSD Converter - XML을 XSD로 변환</title>
-  <meta name="description" content="XML 데이터를 XSD로 변환하는 간단한 도구입니다. 데이터 구조를 정의하고 유효성을 검증하는 데 사용되는 XSD를 생성하세요.">
-  <meta name="keywords" content="XML to XSD, XML 변환 도구, XSD 생성기, XML Schema, 데이터 유효성 검증">
-  <meta name="author" content="Your Name">
+    <!-- SEO Optimization -->
+    <title>XML to XSD Converter - Generate XML Schema Definitions</title>
+    <meta name="description" content="Free online XML to XSD converter.  Generate an XML Schema Definition (XSD) from your XML data.  Validate your XML data structure and ensure its consistency.">
+    <meta name="keywords" content="XML to XSD, XML converter, XSD generator, XML schema, XML Schema Definition, XSD validation, XML validation, data validation, XML structure, developer tools">
+    <meta name="author" content="SOFTICA">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="XML to XSD Converter">
-  <meta property="og:description" content="XML 데이터를 간단히 XSD로 변환하세요. 데이터 구조를 정의하는 데 유용한 도구입니다.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://util-tool-online.com/xml-to-xsd">
-  <meta property="og:image" content="https://util-tool-online.com/images/xml-to-xsd-banner.png">
+    <!-- Open Graph -->
+    <meta property="og:title" content="XML to XSD Converter">
+    <meta property="og:description" content="Generate an XML Schema Definition (XSD) from your XML data using this free online tool.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://util-tool-online.com/xml-to-xsd"> <!-- Update with your actual URL -->
+    <meta property="og:image" content="https://util-tool-online.com/images/util-tool-online.png"> <!-- Update with your image URL -->
 
-  <!-- Twitter Cards -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="XML to XSD Converter">
-  <meta name="twitter:description" content="XML 파일을 기반으로 데이터 구조를 정의하는 XSD를 생성하세요.">
-  <meta name="twitter:image" content="https://util-tool-online.com/images/xml-to-xsd-banner.png">
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="https://util-tool-online.com/images/util-tool-online.png">
+    <meta name="twitter:title" content="XML to XSD Converter">
+    <meta name="twitter:description" content="Create XML Schema Definitions (XSD) easily and quickly.">
+    <meta name="twitter:image" content="https://util-tool-online.com/images/util-tool-online.png"> <!-- Update with your image URL -->
 
-  <!-- 스타일 -->
-  <link rel="icon" href="/favicon.ico">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- Styles -->
+    <link rel="icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
-  <%- include('partials/header') %>
+    <%- include('partials/header') %>
 
-  <div class="container mt-5">
-    <div class="row">
-      <!-- Left Menu -->
-      <div class="col-md-2">
-        <%- include('partials/left-menu') %>
-      </div>
-
-      <!-- Main Content -->
-      <div class="col-md-10">
-        <h1>XML to XSD Converter</h1>
-        <p>
-          XML 데이터를 XSD로 변환하세요. XSD는 데이터의 구조와 유효성을 정의하는 데 사용됩니다. 
-          XML 스키마를 생성하여 데이터 모델링을 간단히 완료하세요.
-        </p>
-
-        <!-- 입력 섹션 -->
-        <section class="mt-5">
-          <h2>XML 입력</h2>
-          <form id="xml-to-xsd-form" action="/xml-to-xsd" method="POST">
-            <div class="mb-3">
-              <label for="text" class="form-label">XML 입력</label>
-              <textarea class="form-control" id="text" name="text" rows="6" required><%= text || '' %></textarea>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Left Menu -->
+            <div class="col-md-2">
+                <%- include('partials/left-menu') %>
             </div>
-            <button type="submit" class="btn btn-primary">XSD 생성</button>
-            <button type="button" class="btn btn-secondary" id="clear-btn">Clear</button>
-          </form>
-        </section>
 
-        <!-- 결과 섹션 -->
-        <% if (result) { %>
-        <section class="mt-5">
-          <h2>XSD 결과</h2>
-          <pre class="bg-light p-3 rounded" id="result"><%= result %></pre>
-          <button class="btn btn-success mt-2" id="copy-btn">클립보드에 복사</button>
-        </section>
-        <% } %>
-        <% if (error) { %>
-        <section class="mt-5">
-          <div class="alert alert-danger"><%= error %></div>
-        </section>
-        <% } %>
+            <!-- Main Content -->
+            <div class="col-md-10">
+                <h1>XML to XSD Converter</h1>
+                <p>This tool helps you generate an XML Schema Definition (XSD) from your XML input.  XSDs define the structure and data types of XML documents, ensuring data consistency and validity.</p>
 
-        <!-- 변환 도구에 대한 설명 -->
-        <section class="mt-5">
-          <h2>XML to XSD란?</h2>
-          <p>
-            "XML to XSD Converter"는 XML 데이터를 XML 스키마(XSD)로 변환하는 도구입니다.
-            XSD는 XML 데이터의 구조와 유효성을 정의하는 데 사용됩니다.
-          </p>
-          <h3>사용 방법</h3>
-          <ol>
-            <li>XML 데이터를 입력합니다.</li>
-            <li>"XSD 생성" 버튼을 클릭합니다.</li>
-            <li>XSD 결과를 확인하고 클립보드에 복사하세요.</li>
-          </ol>
-          <h3>예시</h3>
-          <p>
-            XML 입력:
-          </p>
-          <pre>
-&lt;person&gt;
-  &lt;name&gt;John&lt;/name&gt;
-  &lt;age&gt;30&lt;/age&gt;
-&lt;/person&gt;
-          </pre>
-          <p>XSD 출력:</p>
-          <pre>
+                <!-- XML Input Section -->
+                <section>
+                    <h2>XML Input</h2>
+                    <form id="xml-to-xsd-form" action="/xml-to-xsd" method="POST">
+                        <div class="mb-3">
+                            <label for="text" class="form-label">Enter XML Data</label>
+                            <textarea class="form-control" id="text" name="text" rows="8" required><%= text || '' %></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Generate XSD</button>
+                        <button type="button" class="btn btn-secondary" id="clear-btn">Clear</button>
+                    </form>
+                </section>
+
+                <!-- Result Section -->
+                <section class="mt-5">
+                    <h2>XSD Result</h2>
+                    <% if (error) { %>
+                        <div class="alert alert-danger" id="error-message"><%= error %></div>
+                    <% } %>
+                    <% if (result) { %>
+                        <pre class="bg-light p-3 rounded" id="result"><%= result %></pre>
+                        <button class="btn btn-success mt-2" id="copy-btn">Copy to Clipboard</button>
+                    <% } %>
+                </section>
+
+                <!-- About XML and XSD Section -->
+                <section class="mt-5">
+                    <h2>About XML and XSD</h2>
+                    <h3>What is XML?</h3>
+                    <p>
+                        XML (Extensible Markup Language) is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable.  It's used to structure, store, and transport data.  XML is flexible, allowing you to define your own tags.
+                    </p>
+                    <h3>What is XSD?</h3>
+                    <p>
+                        XSD (XML Schema Definition) is a language used to describe the structure of XML documents.  An XSD file defines the elements, attributes, and data types allowed in an XML document.  It's used to validate XML data, ensuring that it conforms to a specific structure.
+                    </p>
+                    <h3>Why Use XSD?</h3>
+                    <ul>
+                        <li><strong>Data Validation:</strong> Ensures that XML data conforms to a predefined structure.</li>
+                        <li><strong>Data Consistency:</strong> Maintains consistency across multiple XML documents.</li>
+                        <li><strong>Data Integrity:</strong> Helps prevent errors in XML data.</li>
+                        <li><strong>Interoperability:</strong> Improves interoperability between different systems that exchange XML data.</li>
+                    </ul>
+
+                    <h3>XML vs. XSD: Advantages and Disadvantages</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>XML</th>
+                                <th>XSD</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Purpose</td>
+                                <td>Data representation</td>
+                                <td>Data structure definition & validation</td>
+                            </tr>
+                            <tr>
+                                <td>Flexibility</td>
+                                <td>Highly flexible</td>
+                                <td>Less flexible (defines strict structure)</td>
+                            </tr>
+                            <tr>
+                                <td>Complexity</td>
+                                <td>Can be simple or complex</td>
+                                <td>Can be complex for intricate data structures</td>
+                            </tr>
+                            <tr>
+                                <td>Validation</td>
+                                <td>Requires external validation (often XSD)</td>
+                                <td>Provides validation rules</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Examples</h3>
+                    <p><strong>XML Example:</strong></p>
+                    <pre><code class="language-xml">
+&lt;bookstore&gt;
+  &lt;book category="cooking"&gt;
+    &lt;title&gt;Everyday Italian&lt;/title&gt;
+    &lt;author&gt;Giada De Laurentiis&lt;/author&gt;
+    &lt;year&gt;2005&lt;/year&gt;
+    &lt;price&gt;30.00&lt;/price&gt;
+  &lt;/book&gt;
+&lt;/bookstore&gt;
+                    </code></pre>
+                    <p><strong>Partial Equivalent XSD (Generated may vary):</strong></p>
+                    <pre><code class="language-xml">
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;xs:element name="person"&gt;
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://example.org/bookstore"
+           xmlns="http://example.org/bookstore"
+           elementFormDefault="qualified"&gt;
+  &lt;xs:element name="bookstore"&gt;
     &lt;xs:complexType&gt;
       &lt;xs:sequence&gt;
-        &lt;xs:element name="name" type="xs:string" /&gt;
-        &lt;xs:element name="age" type="xs:string" /&gt;
+        &lt;xs:element name="book" maxOccurs="unbounded"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="title" type="xs:string"/&gt;
+              &lt;xs:element name="author" type="xs:string"/&gt;
+              &lt;xs:element name="year" type="xs:integer"/&gt;
+              &lt;xs:element name="price" type="xs:decimal"/&gt;
+            &lt;/xs:sequence&gt;
+            &lt;xs:attribute name="category" type="xs:string"/&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
       &lt;/xs:sequence&gt;
     &lt;/xs:complexType&gt;
   &lt;/xs:element&gt;
 &lt;/xs:schema&gt;
-          </pre>
-        </section>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-              const clearBtn = document.getElementById('clear-btn');
-              const textArea = document.getElementById('text');
-              const result = document.getElementById('result');
-              const copyBtn = document.getElementById('copy-btn');
-          
-              // Clear 버튼 동작
-              clearBtn?.addEventListener('click', () => {
-                textArea.value = ''; // 입력 필드 초기화
-                if (result) result.innerText = ''; // 결과 영역 초기화
-              });
-          
-              // 클립보드 복사 버튼 동작
-              copyBtn?.addEventListener('click', () => {
-                if (result && result.innerText) {
-                  navigator.clipboard.writeText(result.innerText)
-                    .then(() => {
-                      alert('결과가 클립보드에 복사되었습니다!');
-                    })
-                    .catch((err) => {
-                      console.error('클립보드 복사 실패:', err);
-                      alert('클립보드 복사에 실패했습니다. 브라우저 설정을 확인해주세요.');
-                    });
-                } else {
-                  alert('복사할 내용이 없습니다.');
-                }
-              });
-            });
-          </script>
-          
-
-
-
-      </div>
+                    </code></pre>
+                </section>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <%- include('partials/footer') %>
+    <%- include('partials/footer') %>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const clearBtn = document.getElementById('clear-btn');
+            const textArea = document.getElementById('text');
+            const result = document.getElementById('result');
+            const errorMessage = document.getElementById('error-message');
+
+            clearBtn?.addEventListener('click', () => {
+                textArea.value = '';
+                if (result) result.innerText = '';
+                if (errorMessage) errorMessage.style.display = 'none';
+            });
+
+            const copyBtn = document.getElementById('copy-btn');
+            if (copyBtn && result) {
+              copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(result.innerText)
+                  .then(() => alert('Result copied to clipboard!'))
+                  .catch(err => console.error('Copy failed:', err));
+              });
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.css">
 </body>
 </html>

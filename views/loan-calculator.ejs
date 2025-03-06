@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loan Calculator</title>
+  <meta name="description" content="Calculate your loan payments using various repayment methods.">
+  <meta name="keywords"
+    content="loan calculator, loan payment, loan amortization, mortgage calculator, loan repayment, interest calculation, financial calculator, bullet loan, grace period">
+  <meta name="author" content="SOFTICA">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Loan Calculator">
+  <meta property="og:description" content="Calculate loan payments using different repayment methods.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://util-tool-online.com/loan-calculator">
+  <meta property="og:image" content="https://util-tool-online.com/images/util-tool-online.png">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="https://util-tool-online.com/images/util-tool-online.png">
+  <meta name="twitter:title" content="Loan Calculator">
+  <meta name="twitter:description" content="Calculate loan payments with grace periods.">
+  <meta name="twitter:image" content="https://util-tool-online.com/images/util-tool-online.png">
+
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    .result-box {
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+
+    .result-box h3 {
+      margin-top: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    input[type="number"] {
+      text-align: right;
+    }
+  </style>
+</head>
+
+<body>
+  <%- include('partials/header') %>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-2">
+          <%- include('partials/left-menu') %>
+        </div>
+        <div class="col-md-10">
+          <h1>Loan Calculator</h1>
+          <p>Calculate your loan payments.</p>
+
+          <section>
+            <h2>Loan Details</h2>
+            <form id="loan-form" action="/loan-calculator" method="post">
+              <div class="mb-3">
+                <label for="repaymentMethod" class="form-label">Repayment Method:</label>
+                <select class="form-select" id="repaymentMethod" name="repaymentMethod" required>
+                  <option value="principalAndInterest">Principal & Interest</option>
+                  <option value="principalRepayment">Principal Repayment</option>
+                  <option value="bullet">Bullet/Balloon Payment</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="loanAmount" class="form-label">Loan Amount:</label>
+                <input type="number" class="form-control" id="loanAmount" name="loanAmount"
+                  placeholder="Enter loan amount" required>
+              </div>
+              <div class="mb-3">
+                <label for="interestRate" class="form-label">Annual Interest Rate (%):</label>
+                <input type="number" class="form-control" id="interestRate" name="interestRate"
+                  placeholder="Enter interest rate" required>
+              </div>
+              <div class="mb-3">
+                <label for="loanTerm" class="form-label">Loan Term (in months):</label>
+                <input type="number" class="form-control" id="loanTerm" name="loanTerm"
+                  placeholder="Enter loan term in months" required>
+              </div>
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="gracePeriodCheck" name="gracePeriodCheck">
+                <label class="form-check-label" for="gracePeriodCheck">Include Grace Period?</label>
+              </div>
+              <div class="mb-3 grace-period-input" style="display:none;">
+                <label for="gracePeriod" class="form-label">Grace Period (in months):</label>
+                <input type="number" class="form-control" id="gracePeriod" name="gracePeriod"
+                  placeholder="Enter grace period">
+              </div>
+              <button type="submit" class="btn btn-primary">Calculate</button>
+              <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
+            </form>
+          </section>
+
+          <section class="mt-5" id="results-section">
+            <h2>Results</h2>
+            <div id="results"></div>
+            <section class="mt-3">
+              <h3>Understanding Loan Repayment Methods</h3>
+              <p>Choosing the right repayment method significantly impacts your monthly payments and the total interest
+                paid. Here's a breakdown of the three methods this calculator offers:</p>
+              <h4>Principal & Interest</h4>
+              <p>This is the most common method. You make equal monthly payments that cover both the principal (the
+                original loan amount) and the interest. The interest portion is higher in the early stages, and the
+                principal portion increases over time.</p>
+              <h4>Principal Repayment</h4>
+              <p>With this method, you pay off the principal amount in equal installments over the loan term. The
+                interest portion decreases over time as the outstanding principal reduces.</p>
+              <h4>Bullet/Balloon Payment</h4>
+              <p>In a bullet loan, you only pay interest during the loan term. At the end of the term, you pay a large
+                "balloon" payment that covers the entire principal amount.</p>
+            </section>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const gracePeriodCheck = document.getElementById('gracePeriodCheck');
+      const gracePeriodInput = document.querySelector('.grace-period-input');
+
+      gracePeriodCheck.addEventListener('change', () => {
+        gracePeriodInput.style.display = gracePeriodCheck.checked ? 'block' : 'none';
+      });
+
+      const loanForm = document.getElementById('loan-form');
+      loanForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(loanForm);
+        const loanData = {};
+        formData.forEach((value, key) => {
+          loanData[key] = value;
+        });
+
+        fetch('/loan-calculator', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(loanData)
+        })
+          .then(response => response.json())
+          .then(data => {
+            displayResults(data.results, data.error);
+          })
+          .catch(error => {
+            console.error("Error:", error);
+            displayResults(null, "An error occurred during calculation. Please try again.");
+          });
+      });
+
+      function displayResults(results, error) {
+        const resultsDiv = document.getElementById('results');
+        let html = '';
+
+        if (error) {
+          html += `<div class="alert alert-danger">${error}</div>`;
+        } else if (results) {
+          const formatter = new Intl.NumberFormat('en-US', {
+            style: 'decimal',
+            minimumFractionDigits: 0,  // Set to 0 to remove decimals
+            maximumFractionDigits: 0   // Set to 0 to remove decimals
+          });
+          html += `<div class="result-box"><h3>Monthly Payment:</h3><p>${formatter.format(results.monthlyPayment)}</p></div>`;
+          html += `<h3>Amortization Schedule:</h3>`;
+          html += `<table class="table"><thead><tr><th>Month</th><th>Beginning Balance</th><th>Payment</th><th>Interest</th><th>Principal</th><th>Ending Balance</th></tr></thead><tbody>`;
+          results.amortizationSchedule.forEach(monthData => {
+            html += `<tr><td>${monthData.month}</td><td>${formatter.format(monthData.beginningBalance)}</td><td>${formatter.format(monthData.payment)}</td><td>${formatter.format(monthData.interest)}</td><td>${formatter.format(monthData.principal)}</td><td>${formatter.format(monthData.endingBalance)}</td></tr>`;
+          });
+          html += `</tbody></table>`;
+        }
+        resultsDiv.innerHTML = html;
+      }
+
+      function clearForm() {
+        document.getElementById('loan-form').reset();
+        document.getElementById('results').innerHTML = '';
+        document.querySelector('.grace-period-input').style.display = 'none';
+        document.getElementById('gracePeriodCheck').checked = false;
+      }
+
+      function formatNumber(input) {
+        // Remove any existing formatting characters before parsing
+        let value = input.value.replace(/[$,]/g, '');
+
+        //Use parseFloat to preserve decimal values.  Check if it's a valid number.
+        value = parseFloat(value);
+        if (isNaN(value)) return input.value = ''; //Clear if it's not a valid number
+
+        //Apply formatting *only if* the value is a valid number
+        input.value = value.toLocaleString();
+      }
+    </script>
+
+    <%- include('partials/footer') %>
+</body>
+
+</html>

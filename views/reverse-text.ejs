@@ -1,29 +1,30 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- SEO 최적화 -->
-  <title>텍스트 거꾸로 변환 도구 - 문자열 뒤집기</title>
-  <meta name="description" content="입력한 텍스트를 거꾸로 변환하는 간단한 도구입니다. 텍스트를 입력하고 뒤집힌 결과를 확인하세요.">
-  <meta name="keywords" content="텍스트 뒤집기, 문자열 변환, 거꾸로 변환, 텍스트 뒤집는 도구, 문자열 뒤집기 도구">
-  <meta name="author" content="Hyunsoo">
+  <!-- SEO Optimization -->
+  <title>Reverse Text Tool - String Reverser</title>
+  <meta name="description" content="Reverse any text string instantly with our free online Reverse Text Tool.  Simply paste your text and get the reversed version.">
+  <meta name="keywords" content="reverse text, string reverse, text reverser, string reverser, reverse string online, text tool, online tool">
+  <meta name="author" content="SOFTICA">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="텍스트 거꾸로 변환 도구">
-  <meta property="og:description" content="간단한 입력으로 텍스트를 거꾸로 뒤집을 수 있는 도구. 문자열을 손쉽게 변환하세요.">
+  <meta property="og:title" content="Reverse Text Tool">
+  <meta property="og:description" content="Easily reverse any text string with this simple online tool.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://util-tool-online.com/reverse-text">
-  <meta property="og:image" content="https://util-tool-online.com/images/reverse-text-banner.png">
+  <meta property="og:image" content="https://util-tool-online.com/images/util-tool-online.png">
 
   <!-- Twitter Cards -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="텍스트 거꾸로 변환 도구">
-  <meta name="twitter:description" content="입력한 문자열을 뒤집어 변환해보세요. 간단한 도구로 쉽게 텍스트를 변환할 수 있습니다.">
-  <meta name="twitter:image" content="https://util-tool-online.com/images/reverse-text-banner.png">
+  <meta name="twitter:card" content="https://util-tool-online.com/images/util-tool-online.png">
+  <meta name="twitter:title" content="Reverse Text Tool">
+  <meta name="twitter:description" content="Reverse your text strings quickly and easily.">
+  <meta name="twitter:image" content="https://util-tool-online.com/images/util-tool-online.png">
 
-  <!-- 스타일 -->
+
+  <!-- Styles -->
   <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -40,64 +41,82 @@
 
       <!-- Main Content -->
       <div class="col-md-10">
-        <h1>텍스트 거꾸로 변환 도구</h1>
+        <h1>Reverse Text Tool</h1>
         <p>
-          입력한 텍스트를 거꾸로 변환할 수 있는 간단한 도구입니다. 입력하고 변환 버튼을 클릭하면 뒤집힌 결과를 확인할 수 있습니다.
+          This simple tool reverses any text you input.  Paste your text and click "Reverse Text" to see the reversed result.
         </p>
 
-        <!-- 사용법 -->
+        <!-- Usage Instructions -->
         <section class="mt-4">
-          <h2>사용 방법</h2>
+          <h2>How to Use</h2>
           <ol>
-            <li>입력란에 변환할 텍스트를 입력합니다.</li>
-            <li>"거꾸로 변환" 버튼을 클릭하여 결과를 확인합니다.</li>
-            <li>필요하다면 "클립보드에 복사" 버튼을 클릭하여 결과를 복사합니다.</li>
-            <li>"Clear" 버튼을 사용하여 입력 필드와 결과를 초기화하세요.</li>
+            <li>Enter the text you want to reverse in the input field.</li>
+            <li>Click the "Reverse Text" button to see the reversed result.</li>
+            <li>Optionally, click "Copy to Clipboard" to copy the reversed text.</li>
+            <li>Use the "Clear" button to reset the input and output fields.</li>
           </ol>
         </section>
 
-        <!-- 입력 섹션 -->
+        <!-- Input Section -->
         <section class="mt-5">
-          <h2>텍스트 입력</h2>
+          <h2>Enter Text</h2>
           <form id="reverse-form" action="/reverse-text" method="POST">
             <div class="mb-3">
-              <label for="text" class="form-label">텍스트 입력</label>
+              <label for="text" class="form-label">Enter Text</label>
               <textarea class="form-control" id="text" name="text" rows="6" required><%= text || '' %></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">거꾸로 변환</button>
+            <button type="submit" class="btn btn-primary">Reverse Text</button>
             <button type="button" class="btn btn-secondary" id="clear-btn">Clear</button>
           </form>
         </section>
 
-        <!-- 결과 섹션 -->
+        <!-- Result Section -->
         <% if (result) { %>
         <section class="mt-5">
-          <h2>결과</h2>
+          <h2>Result</h2>
           <pre class="bg-light p-3 rounded" id="result"><%= result %></pre>
-          <button class="btn btn-success mt-2" id="copy-btn">클립보드에 복사</button>
+          <button class="btn btn-success mt-2" id="copy-btn">Copy to Clipboard</button>
         </section>
         <% } %>
 
-        <!-- Clear 및 복사 스크립트 -->
+        <!-- About Reverse Text Tool -->
+        <section class="mt-5">
+          <h2>About This Tool</h2>
+          <p>This tool reverses a string of text by reversing the order of its characters. This can be useful for various purposes, including:</p>
+          <ul>
+            <li><strong>Creating Palindromes:</strong> Check if a word or phrase is a palindrome (reads the same backward as forward).</li>
+            <li><strong>Data Manipulation:</strong>  Reverse text for specific data processing or encoding tasks.</li>
+            <li><strong>Coding Challenges:</strong> Useful for solving coding problems that involve string manipulation.</li>
+            <li><strong>Fun and Games:</strong>  Simply reversing text can be a fun way to play with words.</li>
+          </ul>
+          <h3>Examples</h3>
+          <ul>
+            <li>Input: "hello"  Output: "olleh"</li>
+            <li>Input: "A man, a plan, a canal: Panama" Output: "amanaP :lanac a ,nalp a ,nam A"</li>
+          </ul>
+        </section>
+
+
+        <!-- Clear and Copy Script -->
         <script>
           document.addEventListener('DOMContentLoaded', () => {
             const clearBtn = document.getElementById('clear-btn');
             const textArea = document.getElementById('text');
             const result = document.getElementById('result');
 
-            // Clear 버튼 동작
+            // Clear button action
             clearBtn?.addEventListener('click', () => {
-              textArea.value = ''; // 입력 필드 초기화
-              if (result) result.innerText = ''; // 결과 영역 초기화
+              textArea.value = ''; // Clear input field
+              if (result) result.innerText = ''; // Clear result area
             });
 
-            // 클립보드 복사 버튼 동작
+            // Copy to clipboard button action
             const copyBtn = document.getElementById('copy-btn');
             if (copyBtn && result) {
               copyBtn.addEventListener('click', () => {
                 navigator.clipboard.writeText(result.innerText)
-                  .then(() => alert('결과가 클립보드에 복사되었습니다!'))
-                  .catch(err => console.error('복사 실패:', err));
+                  .then(() => alert('Result copied to clipboard!'))
+                  .catch(err => console.error('Copy failed:', err));
               });
             }
           });
