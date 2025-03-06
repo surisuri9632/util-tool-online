@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const crypto = require("crypto"); // Import the crypto library
 const jwt = require("jsonwebtoken");
-const bcrypt = require('bcrypt'); //Import bcrypt library
+const bcrypt = require('bcryptjs'); //Import bcrypt library
 const { parseString } = require("xml2js");
 const { SitemapStream, streamToPromise } = require("sitemap"); // sitemap 생성 라이브러리
 
